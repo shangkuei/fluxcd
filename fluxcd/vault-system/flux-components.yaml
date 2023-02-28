@@ -39,10 +39,10 @@ spec:
     cleanupOnFail: true
     crds: CreateReplace
   values:
-    global:
-      # tlsDisable: false
-      # serverTelemetry:
-      #   prometheusOperator: true
+    # global:
+    #   tlsDisable: false
+    #   serverTelemetry:
+    #     prometheusOperator: true
     injector:
       logLevel: info
       logFormat: json
@@ -55,8 +55,8 @@ spec:
     server:
       logLevel: info
       logFormat: json
-      livenessProbe:
-        enabled: true
+      # livenessProbe:
+      #   enabled: false
       service:
         publishNotReadyAddresses: false
       dataStorage:
@@ -74,10 +74,9 @@ spec:
         #   listener "tcp" {
         #     address = "[::]:8200"
         #     cluster_address = "[::]:8201"
-        #     # Enable unauthenticated metrics access (necessary for Prometheus Operator)
-        #     #telemetry {
-        #     #  unauthenticated_metrics_access = "true"
-        #     #}
+        #     telemetry {
+        #       unauthenticated_metrics_access = "true"
+        #     }
         #   }
         #   storage "raft" {
         #     path = "/vault/data"
