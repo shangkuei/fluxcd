@@ -81,7 +81,13 @@ spec:
           storage "raft" {
             path = "/vault/data"
             retry_join {
-              leader_api_addr = "http://vault-active:8200"
+              leader_api_addr = "http://vault-0:8200"
+            }
+            retry_join {
+              leader_api_addr = "http://vault-1:8200"
+            }
+            retry_join {
+              leader_api_addr = "http://vault-2:8200"
             }
           }
           service_registration "kubernetes" {}
