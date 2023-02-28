@@ -78,8 +78,8 @@ spec:
       daemonSet:
         updateStrategy:
           maxUnavailable: "1"
-    serverTelemetry:
-      serviceMonitor:
-        enabled: true
-      # prometheusRules:
-      #   enabled: true
+    # serverTelemetry:
+    #   serviceMonitor:
+    #     enabled: true
+    #   prometheusRules:
+    #     enabled: true
