@@ -1,0 +1,84 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vault-system
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: hashicorp
+  namespace: vault-system
+spec:
+  interval: 60m
+  url: https://helm.releases.hashicorp.com
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vault
+  namespace: vault-system
+spec:
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn-system
+  chart:
+    spec:
+      chart: vault
+      version: v0
+      sourceRef:
+        kind: HelmRepository
+        name: hashicorp
+      interval: 12h
+      reconcileStrategy: ChartVersion
+  interval: 1h
+  timeout: 20m
+  maxHistory: 5
+  install:
+    crds: Create
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+  values:
+    global:
+      tlsDisable: false
+      # serverTelemetry:
+      #   prometheusOperator: true
+    injector:
+      logLevel: info
+      logFormat: json
+      replica: 3
+      metrics:
+        enabled: true
+      revokeOnShutdown: true
+      podDisruptionBudget:
+        maxUnavailable: 1
+    server:
+      logLevel: info
+      logFormat: json
+      livenessProbe: true
+      service:
+        publishNotReadyAddresses: false
+      dataStorage:
+        storageClass: longhorn
+      auditStorage:
+        enabled: true
+        storageClass: longhorn
+      ha:
+        enabled: true
+        replicas: 3
+        raft:
+          enabled: true
+    ui:
+      enabled: true
+      publishNotReadyAddresses: false
+      activeVaultPodOnly: true
+    csi:
+      enabled: false
+      daemonSet:
+        updateStrategy:
+          maxUnavailable: "1"
+    serverTelemetry:
+      serviceMonitor:
+        enabled: true
+      # prometheusRules:
+      #   enabled: true
