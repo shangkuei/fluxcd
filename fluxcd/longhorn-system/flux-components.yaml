@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: longhorn-system
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: longhorn
+  namespace: longhorn-system
+spec:
+  interval: 60m
+  url: https://charts.longhorn.io
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: longhorn
+  namespace: longhorn-system
+spec:
+  chart:
+    spec:
+      chart: longhorn
+      version: "1.x"
+      sourceRef:
+        kind: HelmRepository
+        name: longhorn
+      interval: 12h
+      reconcileStrategy: ChartVersion
+  interval: 1h
+  timeout: 20m
+  maxHistory: 5
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+  values:
+    presistence:
+      defaultClass: false
+    longhornManager:
+      log:
+        format: json
