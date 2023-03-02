@@ -55,8 +55,11 @@ spec:
     server:
       logLevel: info
       logFormat: json
-      # livenessProbe:
-      #   enabled: false
+      livenessProbe:
+        enabled: true
+        # delay one hour before recreate the pod.
+        failureThreshold: 60
+        periodSeconds: 10
       service:
         clusterIP: None
         publishNotReadyAddresses: false
