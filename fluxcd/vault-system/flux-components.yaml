@@ -53,6 +53,7 @@ spec:
       podDisruptionBudget:
         maxUnavailable: 1
     server:
+      updateStrategyType: RollingUpdate
       logLevel: info
       logFormat: json
       livenessProbe:
