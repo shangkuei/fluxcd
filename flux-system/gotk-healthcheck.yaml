@@ -10,10 +10,10 @@ spec:
     name: flux-system
   path: ./healthcheck
   targetNamespace: flux-system
-  interval: 10m
+  interval: 5m
   prune: true
   force: true
-  timeout: 5m
+  timeout: 30s
   healthChecks:
     - apiVersion: apps/v1
       kind: Deployment

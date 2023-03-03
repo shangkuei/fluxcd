@@ -1,0 +1,49 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: longhorn-health
+  namespace: longhorn-system
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./healthcheck
+  targetNamespace: longhorn-system
+  interval: 5m
+  prune: true
+  force: true
+  timeout: 30s
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: csi-attacher
+      namespace: longhorn-system
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: csi-provisioner
+      namespace: longhorn-system
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: csi-resizer
+      namespace: longhorn-system
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: csi-snapshotter
+      namespace: longhorn-system
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: longhorn-admission-webhook
+      namespace: longhorn-system
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: longhorn-conversion-webhook
+      namespace: longhorn-system
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: longhorn-driver-deployer
+      namespace: longhorn-system
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: longhorn-recovery-backend
+      namespace: longhorn-system
