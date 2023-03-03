@@ -58,11 +58,12 @@ spec:
       logFormat: json
       service:
         clusterIP: None
-        publishNotReadyAddresses: false
       dataStorage:
+        size: 1Gi
         storageClass: longhorn
       auditStorage:
         enabled: true
+        size: 500Mi
         storageClass: longhorn
       ha:
         enabled: true
