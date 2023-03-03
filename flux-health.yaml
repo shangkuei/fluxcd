@@ -1,0 +1,33 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: flux-health
+  namespace: flux-system
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./healthcheck
+  targetNamespace: flux-system
+  interval: 10m
+  prune: true
+  force: true
+  timeout: 5m
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: helm-controller
+      namespace: flux-system
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kustomize-controller
+      namespace: flux-system
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: notification-controller
+      namespace: flux-system
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: source-controller
+      namespace: flux-system
