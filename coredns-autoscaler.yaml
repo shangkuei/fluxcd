@@ -8,7 +8,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: utils/cluster-proportional-autoscaler/linear_components.yaml
+  path: utils/cluster-proportional-autoscaler/
   interval: 1h
   imeout: 5m
   force: true

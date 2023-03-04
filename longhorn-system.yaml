@@ -8,7 +8,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: longhorn-system/kustomization.yaml
+  path: longhorn-system/
   interval: 1h
   timeout: 5m
   force: true
