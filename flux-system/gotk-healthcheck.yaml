@@ -2,18 +2,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: flux-health
+  name: flux-system
   namespace: flux-system
 spec:
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./healthcheck
-  targetNamespace: flux-system
-  interval: 5m
-  prune: true
+  interval: 1h
+  timeout: 5m
   force: true
-  timeout: 30s
   healthChecks:
     - apiVersion: apps/v1
       kind: Deployment

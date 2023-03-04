@@ -2,19 +2,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: longhorn-health
-  namespace: longhorn-system
+  name: longhorn-system
+  namespace: flux-system
 spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-    namespace: flux-system
-  path: utils/healthcheck/
-  targetNamespace: longhorn-system
-  interval: 5m
-  prune: true
+  path: longhorn-system/kustomization.yaml
+  interval: 1h
+  timeout: 5m
   force: true
-  timeout: 30s
+  prune: true
   healthChecks:
     - apiVersion: apps/v1
       kind: Deployment

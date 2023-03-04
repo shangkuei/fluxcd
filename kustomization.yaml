@@ -1,9 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - flux-system/
-  - flux-system/gotk-healthcheck.yaml
-  #- longhorn-system/
-  #- longhorn-system/healthcheck.yaml
-  #- vault-system/
-  #- vault-system/healthcheck.yaml
+  - flux-system/kustomization.yaml
+  - longhorn-system.yaml
+  - coredns-autoscaler.yaml
+  #- vault-system.yaml
