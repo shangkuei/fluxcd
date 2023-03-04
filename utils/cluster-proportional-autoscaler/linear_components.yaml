@@ -1,0 +1,57 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: ${linear_autocaler_name:=cluster-linear-autoscaler}
+spec:
+  interval: 60m
+  url: https://kubernetes-sigs.github.io/cluster-proportional-autoscaler
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ${linear_autocaler_name:=cluster-linear-autoscaler}
+spec:
+  chart:
+    spec:
+      chart: cluster-proportional-autoscaler
+      version: "1.x"
+      sourceRef:
+        kind: HelmRepository
+        name: ${linear_autocaler_name:=cluster-linear-autoscaler}
+      interval: 12h
+      reconcileStrategy: ChartVersion
+  interval: 1h
+  timeout: 5m
+  maxHistory: 5
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+  values:
+    config:
+      linear:
+        coresPerRelica: ${linear_autocaler_cores_per_replica:=8}
+        nodesPerReplica: ${linear_autocaler_nodes_per_replica:=4}
+        max: ${linear_autocaler_max:=4}
+        preventSinglePointFailure: true
+        includeUnschedulableNodes: true
+    image:
+      tag: ${linear_autocaler_image_tag:=1.8.6}
+    fullnameOverride: ${linear_autocaler_name:=cluster-linear-autoscaler}
+    nameOverride: ${linear_autocaler_name:=cluster-linear-autoscaler}
+    options:
+      logLevel: 2
+      namespace: ${linear_autocaler_namespace}
+      target: ${linear_autocaler_target}
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+    securityContext:
+      capabilities:
+        drop:
+          - ALL
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
