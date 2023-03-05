@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-seal-config
+  namespace: vault
+type: Opaque
+stringData:
+  vault-seal-config.hcl: ENC[AES256_GCM,data:pNUno/vtYTzeIOj75fSR+dvMRWH6OQhddZh1s3Xu/ADY7EEhdOWYwFHAbyTQVWypR99AmYDjG67HXdjeZhqGLEKgvoEdMliT9lLEvjpgKQso22N6BCjcwtn8c+mXSIrHe6nYiyPqL9EKLzalW6+CJW0TZu6FL6nmq1VWpvHq25Wx4nq0ntvBaz/1mF2VStfbFVtfIYRhpkFL3Ys=,iv:MB9wgvEtyulX4dXmp36gwlbPA59eJGx1FjoWSgF5cv0=,tag:XEpkXk6eDIqHUWmESYcF9A==,type:str]
+sops:
+  kms: []
+  gcp_kms: []
+  azure_kv: []
+  hc_vault: []
+  age:
+    - recipient: age123vdkkw4z7e4xxh0xq6dmnwg82kzf86uxkjajs74klg5wkqxvpgq6cwv07
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBSSHdoWmhnUjc0Qy9hNUt5
+        TCttRkxYOGQ2d09ZTjhhcXcxTWM1SjRWTldrCjROTWdiR0R3Qm1kNk1pU0piYTUv
+        bWtvaXREck5qT25QYXdOSURGeVpncHcKLS0tIEl4V0k1OUFoWVVlckNxL1dyb0hr
+        NVNlUHJRNC9pUkhwWEtUcm5kUUJISmMKNro8WiH038+Vef+Kb5jPUw0jqjTAf4fT
+        qn7QFpC/RYERWcu7LzrJFbkYxTJEleZ2enNyd/uGpX2wUEziotRh/w==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2023-03-05T12:02:42Z"
+  mac: ENC[AES256_GCM,data:LIovydRQAeeLlwBdoR+LMhf1S3Vs9/g6hFhuNOkQYErKVg4WOuxlIHHa9COGwuetwbRxNjF5KbgUI6AEBrhu+jXt0nRR5yhrosAaPOWFuIVL6wEQV3AyFQJo2VGps/FquZpoCfNXadFa5yYs94dzmZrU49nGDCFE2xJ19I6SdPA=,iv:UggYrVkvTI+KPd/vRp51n2msG4LH3moY2SVbQIHaAnU=,tag:ctBuXn6Ytt9+SsKy9Pgrxw==,type:str]
+  pgp: []
+  encrypted_regex: ^(data|stringData)$
+  version: 3.7.3
