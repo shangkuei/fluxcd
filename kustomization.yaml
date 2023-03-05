@@ -4,5 +4,5 @@ resources:
   - flux-system/
   - coredns-autoscaler.yaml
   - nfs-provisioner.yaml
-  - longhorn.yaml
+  # - longhorn.yaml
   - vault.yaml
