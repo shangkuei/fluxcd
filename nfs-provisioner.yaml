@@ -13,4 +13,8 @@ spec:
   timeout: 5m
   force: true
   prune: true
-  wait: true
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: nfs-provisioner
+      namespace: nfs-provisioner

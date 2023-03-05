@@ -19,8 +19,8 @@ metadata:
   namespace: vault
 spec:
   dependsOn:
-    - name: longhorn
-      namespace: longhorn
+    - name: nfs-provisioner
+      namespace: nfs-provisioner
   chart:
     spec:
       chart: vault
