@@ -32,8 +32,8 @@ spec:
   values:
     config:
       linear:
-        coresPerRelica: ${linear_autocaler_cores_per_replica:=8}
-        nodesPerReplica: ${linear_autocaler_nodes_per_replica:=4}
+        coresPerRelica: ${linear_autocaler_cores_per_replica:=32}
+        nodesPerReplica: ${linear_autocaler_nodes_per_replica:=10}
         max: ${linear_autocaler_max:=4}
         preventSinglePointFailure: true
         includeUnschedulableNodes: true
