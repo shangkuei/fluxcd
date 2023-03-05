@@ -44,7 +44,7 @@ spec:
       defaultDataLocality: best-effort
       defaultClassReplicaCount: 1
     defaultSettings:
-      systemManagedComponentsNodeSelector: "node-role.kubernetes.io/longhorn:true"
+      systemManagedComponentsNodeSelector: "k3s.shangkuei.xyz/longhorn:true"
     longhornManager:
       log:
         format: json
