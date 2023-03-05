@@ -134,7 +134,7 @@ spec:
         enabled: true
         size: 500Mi
         storageClass: synology-nfs
-        extraArgs: -config=/vault/config/vault-seal-config.hcl
+        extraArgs: -config=/vault/userconfig/vault-seal-config.hcl
       volumes:
         - name: vault-seal-config
           secret:
@@ -142,7 +142,7 @@ spec:
             secretName: vault-seal-config
       volumeMounts:
         - name: vault-seal-config
-          mountPath: /vault/config/vault-seal-config.hcl
+          mountPath: /vault/userconfig/vault-seal-config.hcl
           subPath: vault-seal-config.hcl
           readOnly: true
       ha:
