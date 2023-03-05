@@ -62,7 +62,7 @@ spec:
         clusterIP: None
       dataStorage:
         size: 1Gi
-        storageClass: nfs-provisioner
+        storageClass: synology-nfs
       auditStorage:
         enabled: true
         size: 500Mi
