@@ -44,6 +44,7 @@ spec:
       defaultDataLocality: best-effort
       defaultClassReplicaCount: 1
     defaultSettings:
+      defaultReplicaCount: 1
       systemManagedComponentsNodeSelector: "k3s.shangkuei.xyz/longhorn:true"
     longhornManager:
       log:
