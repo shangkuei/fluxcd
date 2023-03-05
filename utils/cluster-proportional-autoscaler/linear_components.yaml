@@ -39,8 +39,8 @@ spec:
         includeUnschedulableNodes: true
     image:
       tag: ${linear_autocaler_image_tag:=1.8.6}
-    fullnameOverride: ${linear_autocaler_name:=cluster-linear-autoscaler}
-    nameOverride: ${linear_autocaler_name:=cluster-linear-autoscaler}
+    fullnameOverride: ${linear_autocaler_fullname_override:=cluster-linear-autoscaler}
+    nameOverride: ${linear_autocaler_name_override:=cluster-linear-autoscaler}
     options:
       logLevel: 2
       namespace: ${linear_autocaler_namespace}

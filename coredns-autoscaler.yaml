@@ -18,6 +18,7 @@ spec:
     substitute:
       linear_autocaler_name: coredns-scaler
       linear_autocaler_namespace: kube-system
+      linear_autocaler_fullname_override: coredns-scaler
       linear_autocaler_target: deployment/coredns
   healthChecks:
     - apiVersion: apps/v1
