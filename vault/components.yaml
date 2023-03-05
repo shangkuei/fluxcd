@@ -62,7 +62,7 @@ spec:
         clusterIP: None
       dataStorage:
         size: 1Gi
-        storageClass: longhorn
+        storageClass: nfs-provisioner
       auditStorage:
         enabled: true
         size: 500Mi

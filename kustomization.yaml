@@ -3,5 +3,6 @@ kind: Kustomization
 resources:
   - flux-system/
   - coredns-autoscaler.yaml
+  - nfs-provisioner.yaml
   - longhorn.yaml
   - vault.yaml
