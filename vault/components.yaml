@@ -66,7 +66,7 @@ spec:
       auditStorage:
         enabled: true
         size: 500Mi
-        storageClass: longhorn
+        storageClass: synology-nfs
       ha:
         enabled: true
         replicas: 3
