@@ -2,13 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: longhorn-system
+  name: longhorn
   namespace: flux-system
 spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: longhorn-system/
+  path: longhorn/
   interval: 1h
   timeout: 5m
   force: true
@@ -17,32 +17,32 @@ spec:
     - apiVersion: apps/v1
       kind: Deployment
       name: csi-attacher
-      namespace: longhorn-system
+      namespace: longhorn
     - apiVersion: apps/v1
       kind: Deployment
       name: csi-provisioner
-      namespace: longhorn-system
+      namespace: longhorn
     - apiVersion: apps/v1
       kind: Deployment
       name: csi-resizer
-      namespace: longhorn-system
+      namespace: longhorn
     - apiVersion: apps/v1
       kind: Deployment
       name: csi-snapshotter
-      namespace: longhorn-system
+      namespace: longhorn
     - apiVersion: apps/v1
       kind: Deployment
       name: longhorn-admission-webhook
-      namespace: longhorn-system
+      namespace: longhorn
     - apiVersion: apps/v1
       kind: Deployment
       name: longhorn-conversion-webhook
-      namespace: longhorn-system
+      namespace: longhorn
     - apiVersion: apps/v1
       kind: Deployment
       name: longhorn-driver-deployer
-      namespace: longhorn-system
+      namespace: longhorn
     - apiVersion: apps/v1
       kind: Deployment
       name: longhorn-recovery-backend
-      namespace: longhorn-system
+      namespace: longhorn
