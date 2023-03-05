@@ -16,5 +16,9 @@ spec:
   healthChecks:
     - apiVersion: apps/v1
       kind: StatefulSet
+      name: vault-dev
+      namespace: vault
+    - apiVersion: apps/v1
+      kind: StatefulSet
       name: vault
       namespace: vault
