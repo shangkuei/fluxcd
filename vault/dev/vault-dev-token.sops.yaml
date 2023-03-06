@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-dev-token
+  namespace: vault
+type: Opaque
+stringData:
+  token: ENC[AES256_GCM,data:qIlsdS9PD8NEfoYLeqJq8crifpt1T5uPFjDHqQ==,iv:pKubJvWZtslCwBEtCiP2gSC+Jqfw9xSfLKvHkdj9kcw=,tag:yTgjAbYdfGb090X/vKogFQ==,type:str]
+sops:
+  kms: []
+  gcp_kms: []
+  azure_kv: []
+  hc_vault: []
+  age:
+    - recipient: age123vdkkw4z7e4xxh0xq6dmnwg82kzf86uxkjajs74klg5wkqxvpgq6cwv07
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBPbURKYmdyMGk5YTlxV0lW
+        NUoyQS85Y1IwdENkaWIwZXNsSHF2UkpLcUI4CnZxR0ZXTXZUeHlrSTdkQWdwMlJV
+        dUhvU1RST2lnTzU0Vyt3ZEtFU1R1QzgKLS0tIFJ5TFA5SEtIbUtodURaYjduT2JG
+        cGhnK0VmaWFzcWNTNG5aK2VZdE9ibG8KqZ3osfSU1z/AaRQNrOz1RFfpwemRqgDC
+        eOVZRWlsiXm3neSwsdh14KNRdQhw2RD6gpDbBOjuwB+f8pQkXvbpQg==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2023-03-06T07:41:23Z"
+  mac: ENC[AES256_GCM,data:ZP7Qm0VmXq81HEDbGYikUhJmgR+ijMoonN8eljcdKeSsV7XDZrtWDLb6OSxHGDl6nkXsQEaDOKoESBoFqxV5ZFkJDLuowbD6huoJicL90H8vlBpwzP/J79Fansx0RE6fiUNA7VrVzZf84uktHZdBtHMbo0Trs3BzhdxYTIFPIms=,iv:w5TOF/VxCy8n/Abu6uKijYHD7WhRzyXwVQxzBCqh+Wg=,tag:BAnnvoWG0lExc7KlYrAowA==,type:str]
+  pgp: []
+  encrypted_regex: ^(data|stringData)$
+  version: 3.7.3
