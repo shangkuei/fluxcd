@@ -1,0 +1,18 @@
+apiVersion: infra.contrib.fluxcd.io/v1alpha1
+kind: Terraform
+metadata:
+  name: vault-dev
+  namespace: vault
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: vault/dev/bootstrap
+  interval: 1h
+  approvePlan: auto
+  varsFrom:
+    - kind: Secret
+      name: vault-dev-token
+      varsKeys:
+        - token

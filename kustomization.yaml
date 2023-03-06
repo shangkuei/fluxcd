@@ -5,4 +5,4 @@ resources:
   - coredns-autoscaler.yaml
   - nfs-provisioner.yaml
   # - longhorn.yaml
-  # - vault.yaml
+  - vault.yaml
