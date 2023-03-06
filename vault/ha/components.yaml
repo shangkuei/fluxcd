@@ -55,17 +55,42 @@ spec:
         enabled: true
         size: 500Mi
         storageClass: synology-nfs
-      extraArgs: -config=/vault/userconfig/vault-seal-config.hcl
+      extraInitContainers:
+        - name: busybox
+          image: busybox
+          command:
+            - sh
+            - -c
+          args:
+            - |
+              cat <<EOF > /vault/userconfig/vault-seal-config.hcl
+              seal "transit" {
+                address         = "http://vault-dev:8200"
+                token           = "$(cat /vault/secret/transit-token)"
+                disable_renewal = "false"
+                key_name        = "k3s"
+                mount_path      = "transit/"
+                tls_skip_verify = "true"
+              }
+          volumeMounts:
+            - name: userconfig
+              mountPath: /vault/userconfig
+            - name: transit-token
+              mountPath: /vault/secret
+              readOnly: true
+                - /vault/config
       volumes:
-        - name: vault-seal-config
+        - name: userconfig
+          emptyDir: {}
+        - name: transit-token
           secret:
             defaultMode: 400
-            secretName: vault-seal-config
+            secretName: vault-ha-transit-token
       volumeMounts:
-        - name: vault-seal-config
-          mountPath: /vault/userconfig/vault-seal-config.hcl
-          subPath: vault-seal-config.hcl
+        - name: userconfig
+          mountPath: /vault/userconfig
           readOnly: true
+      extraArgs: -config=/vault/userconfig/vault-seal-config.hcl
       ha:
         enabled: true
         replicas: 3
