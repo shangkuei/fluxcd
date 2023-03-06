@@ -7,6 +7,17 @@ resources:
 patches:
   # Configure health check for flux-system
   - path: gotk-healthcheck.yaml
+  # Tune the API kubrst and API QPS
+  - patch: |
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --kube-api-qps=5
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --kube-api-burst=10
+    target:
+      kind: Deployment
+      labelSelector: app.kubernetes.io/part-of=flux
   # Update flux-system replicas
   - patch: |
       - op: replace
