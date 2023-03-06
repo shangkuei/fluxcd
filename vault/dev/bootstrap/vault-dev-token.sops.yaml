@@ -5,7 +5,7 @@ metadata:
   namespace: vault
 type: Opaque
 stringData:
-  token: ENC[AES256_GCM,data:9ziFrjN9Ib3Nfo5WP6mBmhLbNQHEQlv7tTWGNQ==,iv:19q9/0nzMZdx1k21RVeoQgK8VZlZG/IlF75AWYhmANg=,tag:4e8usOywpSLMG24vzSJeXw==,type:str]
+  token: ENC[AES256_GCM,data:i4eYuQl/0cNUXBn9RFYtm1ehw4Kr0JnlLhRmPA==,iv:/5Wcw5N76mn8rs7NOjWnR3rIIckvL9vdN4uPje3/6D0=,tag:dEmtK2hvEjcQt9oLuz13wQ==,type:str]
 sops:
   kms: []
   gcp_kms: []
@@ -15,14 +15,14 @@ sops:
     - recipient: age123vdkkw4z7e4xxh0xq6dmnwg82kzf86uxkjajs74klg5wkqxvpgq6cwv07
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBLUC80RUJkN1BLNzZjQTVM
-        RjBPdGNZRkdrbkY4b014MWFkWEg1L2Izc1NjClFvWlVCQXFQdDVnQTdaeVBUa1RT
-        czJDMk1mQ3MzMkZkbUJEc0x2cGg0eW8KLS0tIGdlamViRUhORGRUdFdHNUhDc0hv
-        YXEzVDVPRDZMYmZNNWE3TnlKeXMwVXMK8t8hmEyBKowfIT81XYBZz+JRDckZ1C9k
-        UT0jQh5lUJBgD8486m2jOd1avNhZQK1PCyYC94v+dFXLaxY1exR0kw==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBqQ05OeUgrSTl4RkpvcEVp
+        TU1ObDlvc2lBL3VnU2E5L2Z2dWpVUStSd1JrCnBNZ1EzMk1ENFdETm9mSTJlc2xP
+        TGRzdTQ4WTRJOXdYNWlJUlRMVU4zUDAKLS0tIGhPNDg5US9LM0FBMVkyaHYwdXpM
+        VWIvSDVPZnhYdXlieEY3UlVCOHFWcW8KwPGvZG7PPVDq/aIvGAiienmHSwsRuQll
+        6mo0AyILHyfjY5h3n3G4ftwjGi9t06crgTxvWOYTe8tp1QdPbVVs9A==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2023-03-06T13:23:11Z"
-  mac: ENC[AES256_GCM,data:vfZUuJkbTxduFwA1BTkw0vK8mq0yb41Ap+BJ1THQCwIStUiqob9OfKZGzKYneWxtuE0t47zbwLVz+LdTq17zNYM2JO0mHiazh8Urc41VgSehsFoaDcekhnXQxV9E+QD+XuntqXA8AmpaxUI5nnAe5a4W/r3qM5YvfbN4p+g8+Fc=,iv:wlVw0mFagwmmnUY+LP3SJYuPT7nd+NkflOcV8GTD91k=,tag:ytm7oq56i9pl4lcniTkqUA==,type:str]
+  lastmodified: "2023-03-06T14:10:07Z"
+  mac: ENC[AES256_GCM,data:/kGnv9Lj4FtwKRl4ZU2SfQ7iCxCzvOSP1DMVkfXHDzhLWM7Q7RI6D4tU3R9lMDCPlV6t5+wJkfEZJwEEKtGBV87eV343Gy3V0rabN+9mugSi+uO3eyoI+QY9TosPCoNIuSXaluZsRO5QPXO0j5HeAzje+AtoEAmAqyg2AHRatmk=,iv:gGBvJ7W+lsIkZoPEchO7yipfxOQD+yeG8PudLR70efk=,tag:dyndCp6x1IgGaETq1q8TfA==,type:str]
   pgp: []
   encrypted_regex: ^(data|stringData)$
   version: 3.7.3
