@@ -22,31 +22,31 @@ patches:
   - patch: |
       - op: replace
         path: /spec/replicas
-        value: 2
+        value: 1
     target:
       kind: Deployment
       name: helm-controller
   - patch: |
       - op: replace
         path: /spec/replicas
-        value: 2
+        value: 1
     target:
       kind: Deployment
       name: kustomize-controller
   - patch: |
       - op: replace
         path: /spec/replicas
-        value: 2
+        value: 1
     target:
       kind: Deployment
       name: notification-controller
-  # - patch: |
-  #     - op: replace
-  #       path: /spec/replicas
-  #       value: 2
-  #   target:
-  #     kind: Deployment
-  #     name: source-controller
+  - patch: |
+      - op: replace
+        path: /spec/replicas
+        value: 1
+    target:
+      kind: Deployment
+      name: source-controller
   # Add tf-controller into notifications
   - patch: |
       - op: add
