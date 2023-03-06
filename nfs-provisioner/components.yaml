@@ -45,7 +45,6 @@ spec:
       name: synology-nfs
       provisionerName: k3s.shangkuei.xyz/synology-nfs
       onDelete: retain
-      pathPattern: "pvc-${.PVC.namespace}-${.PVC.name}"
       accessModes: ReadWriteMany
       volumeBindingMode: Immediate
     nfs:
