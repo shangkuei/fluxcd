@@ -28,7 +28,7 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    replicaCount: 2
+    replicaCount: 1
     resources:
       limits:
         cpu: 1000m
