@@ -68,7 +68,7 @@ spec:
                 address         = "http://vault-dev:8200"
                 token           = "$(cat /vault/secret/transit-token)"
                 disable_renewal = "false"
-                key_name        = "k3s"
+                key_name        = "vault-ha"
                 mount_path      = "transit/"
                 tls_skip_verify = "true"
               }
