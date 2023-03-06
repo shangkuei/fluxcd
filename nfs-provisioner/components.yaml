@@ -57,4 +57,4 @@ spec:
       volumeName: synology-nfs
       reclaimPolicy: Retain
     labels:
-      k3s.shangkuei.xyz/storage-class: synology-nfs-retain
+      k3s.shangkuei.xyz/storage-class: synology-nfs
