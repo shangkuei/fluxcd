@@ -10,6 +10,7 @@ spec:
     namespace: flux-system
   path: vault/dev/bootstrap
   interval: 1h
+  alwaysCleanupRunnerPod: true
   approvePlan: auto
   varsFrom:
     - kind: Secret
