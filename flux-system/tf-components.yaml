@@ -29,18 +29,21 @@ spec:
     crds: CreateReplace
   values:
     replicaCount: 2
-    concurrency: 24
     resources:
       limits:
         cpu: 1000m
-        memory: 2Gi
-      requests:
-        cpu: 400m
-        memory: 64Mi
+        memory: 1Gi
     caCertValidityDuration: 24h
     certRotationCheckFrequency: 30m
     image:
       tag: v0.14.0
+    concurrency: 4
+    kubeAPIQPS: 5
+    kubeAPIBurst: 10
     runner:
       image:
         tag: v0.14.0
+      allowedNamespaces:
+        - vault
+    metrics:
+      enabled: true

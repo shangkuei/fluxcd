@@ -16,3 +16,5 @@ spec:
       name: vault-dev-token
       varsKeys:
         - token
+  writeOutputsToSecret:
+    name: vault-ha-transit-token
