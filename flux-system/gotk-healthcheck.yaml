@@ -25,3 +25,7 @@ spec:
       kind: Deployment
       name: source-controller
       namespace: flux-system
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: tf-controller
+      namespace: flux-system

@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - gotk-sync.yaml
   - gotk-components.yaml
+  - tf-components.yaml
 patches:
   - path: gotk-healthcheck.yaml
   - patch: |
