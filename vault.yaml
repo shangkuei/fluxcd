@@ -2,17 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: vault
+  name: vault-dev
   namespace: flux-system
 spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  decryption:
-    provider: sops
-    secretRef:
-      name: flux-system
-  path: vault/
+  path: vault/dev
   interval: 1h
   timeout: 5m
   force: true
@@ -22,7 +18,29 @@ spec:
       kind: StatefulSet
       name: vault-dev
       namespace: vault
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: vault-ha
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: vault-dev
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: flux-system
+  path: vault/ha
+  interval: 1h
+  timeout: 5m
+  force: true
+  prune: true
+  healthChecks:
     - apiVersion: apps/v1
       kind: StatefulSet
-      name: vault
+      name: vault-ha
       namespace: vault
