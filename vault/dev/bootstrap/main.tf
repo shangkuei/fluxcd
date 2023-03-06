@@ -44,9 +44,11 @@ path "auth/token/vault-ha" {
 EOT
 }
 
-
 resource "vault_token" "vault_ha" {
-  role_name       = "vault-ha"
+  depends_on = [
+    vault_policy.vault_ha,
+    vault_policy.vault_ha_token
+  ]
   policies        = ["vault-ha", "vault-ha-token"]
   no_parent       = true
   renewable       = true
