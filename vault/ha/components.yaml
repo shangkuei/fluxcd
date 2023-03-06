@@ -78,7 +78,6 @@ spec:
             - name: transit-token
               mountPath: /vault/secret
               readOnly: true
-                - /vault/config
       volumes:
         - name: userconfig
           emptyDir: {}

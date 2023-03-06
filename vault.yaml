@@ -2,18 +2,31 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: vault-dev
+  name: vault-base
+  namespace: flux-system
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: vault/base
+  interval: 1h
+  timeout: 5m
+  force: true
+  prune: true
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: vault-dev-helm-release
   namespace: flux-system
 spec:
   dependsOn:
     - name: flux-system
+    - name: vault-base
   sourceRef:
     kind: GitRepository
     name: flux-system
-  decryption:
-    provider: sops
-    secretRef:
-      name: flux-system
   path: vault/dev
   interval: 1h
   timeout: 5m
@@ -24,6 +37,30 @@ spec:
       kind: StatefulSet
       name: vault-dev
       namespace: vault
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: vault-dev-terraform-bootstrap
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: flux-system
+    - name: vault-base
+    - name: vault-dev-helm-release
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: flux-system
+  path: vault/dev/bootstrap
+  interval: 1h
+  timeout: 5m
+  force: true
+  prune: true
+  healthChecks:
     - apiVersion: infra.contrib.fluxcd.io/v1alpha1
       kind: Terraform
       name: vault-dev
@@ -32,11 +69,13 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: vault-ha
+  name: vault-ha-helm-release
   namespace: flux-system
 spec:
   dependsOn:
-    - name: vault-dev
+    - name: vault-base
+    - name: vault-dev-helm-release
+    - name: vault-dev-terraform-bootstrap
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -8,7 +8,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: vault/dev/bootstrap
+  path: vault/dev/bootstrap/terrafrom
   interval: 1h
   alwaysCleanupRunnerPod: true
   approvePlan: auto
