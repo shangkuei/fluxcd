@@ -1,6 +1,6 @@
 variable "address" {
   type        = string
-  default     = "vault-dev.vault"
+  default     = "http://vault-dev.vault:8200"
   description = "vault provider address"
 }
 
