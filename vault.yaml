@@ -5,6 +5,8 @@ metadata:
   name: vault-dev
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: flux-system
   sourceRef:
     kind: GitRepository
     name: flux-system
