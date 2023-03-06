@@ -1,6 +1,6 @@
 provider "vault" {
-  address = ""
-  token   = ""
+  address = var.address
+  token   = var.token
 }
 
 resource "vault_mount" "transit" {
