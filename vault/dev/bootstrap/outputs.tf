@@ -1,5 +1,5 @@
-output "token" {
-  value       = vault_token.vault_ha.client_token
-  description = "The token to access the vault transit backend"
+output "vault-seal-config" {
+  value       = local.seal_config
+  description = "The vault-ha seal config to access the vault transit backend"
   sensitive   = true
 }

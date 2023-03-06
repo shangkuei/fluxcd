@@ -56,3 +56,16 @@ resource "vault_token" "vault_ha" {
   renew_min_lease = 43200
   renew_increment = 86400
 }
+
+locals {
+  seal_config = <<EOT
+seal "transit" {
+  address         = "http://vault-dev:8200"
+  token           = "${vault_token.vault_ha.client_token}"
+  disable_renewal = "false"
+  key_name        = "k3s"
+  mount_path      = "transit/"
+  tls_skip_verify = "true"
+}
+EOT
+}
