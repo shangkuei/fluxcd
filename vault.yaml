@@ -5,6 +5,9 @@ metadata:
   name: vault-base
   namespace: flux-system
 spec:
+  dependsOn:
+    # The vault flow should wait until the flux system is ready.
+    - name: flux-system
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -22,7 +25,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: flux-system
+    # The vault-dev should wait until the vault-base is ready for the helm repo.
     - name: vault-base
   sourceRef:
     kind: GitRepository
@@ -45,8 +48,9 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
+    # The vaule-dev bootstrap stack should wait until the tf-controller is ready.
     - name: flux-system
-    - name: vault-base
+    # The vaule-dev bootstrap stack should wait until the vault-dev is ready.
     - name: vault-dev-helm-release
   sourceRef:
     kind: GitRepository
@@ -73,8 +77,11 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
+    # The vault-ha should wait until the vault-base is ready for the helm repo.
     - name: vault-base
+    # The vaule-ha should wait until the vault-dev is ready.
     - name: vault-dev-helm-release
+    # The vaule-ha should wait until the vault-dev Terraform bootstrap stack is ready.
     - name: vault-dev-terraform-bootstrap
   sourceRef:
     kind: GitRepository
