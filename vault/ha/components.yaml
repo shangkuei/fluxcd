@@ -103,9 +103,10 @@ spec:
               address = "[::]:8200"
               cluster_address = "[::]:8201"
 
-              # telemetry {
-              #   unauthenticated_metrics_access = "true"
-              # }
+              # Add authenicated metrics access
+              telemetry {
+                unauthenticated_metrics_access = "true"
+              }
             }
 
             storage "raft" {
@@ -128,11 +129,8 @@ spec:
       activeVaultPodOnly: true
     csi:
       enabled: false
-      daemonSet:
-        updateStrategy:
-          maxUnavailable: "1"
-    # serverTelemetry:
-    #   serviceMonitor:
-    #     enabled: true
-    #   prometheusRules:
-    #     enabled: true
+    serverTelemetry:
+      serviceMonitor:
+        enabled: true
+      prometheusRules:
+        enabled: true
