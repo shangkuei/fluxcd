@@ -1,0 +1,202 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus-operator
+  namespace: monitoring
+spec:
+  chart:
+    spec:
+      version: "43.x"
+      chart: kube-prometheus-stack
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+  interval: 1h
+  timeout: 5m
+  maxHistory: 5
+  install:
+    crds: Create
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+  uninstall:
+    keepHistory: false
+  values:
+    nameOverride: prometheus-operator
+    fullnameOverride: prometheus-operator
+    global:
+      rbac:
+        create: true
+        createAggregateClusterRoles: true
+    alertmanager:
+      enabled: false
+    prometheus:
+      enabled: false
+    prometheusOperator:
+      enabled: true
+    grafana:
+      enabled: false
+    kubeApiServer:
+      enabled: false
+    kubelet:
+      enabled: false
+    kubeControllerManager:
+      enabled: false
+    coreDns:
+      enabled: false
+    kubeEtcd:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeProxy:
+      enabled: false
+    kubeStateMetrics:
+      enabled: false
+    nodeExporter:
+      enabled: false
+    cleanPrometheusOperatorObjectNames: true
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  dependsOn:
+    - name: prometheus-operator
+  chart:
+    spec:
+      version: "43.x"
+      chart: kube-prometheus-stack
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+  interval: 1h
+  timeout: 5m
+  maxHistory: 5
+  install:
+    crds: Create
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+  uninstall:
+    keepHistory: false
+  valuesFrom:
+    - kind: ConfigMap
+      name: vaules-node
+      optional: true
+  values:
+    nameOverride: prometheus
+    fullnameOverride: prometheus
+    global:
+      rbac:
+        create: false
+    prometheus:
+      enabled: true
+      podDisruptionBudget:
+        enabled: true
+        minAvailable: 1
+        maxUnavailable: 1
+      extraSecret:
+        data:
+      prometheusSpec:
+        logfmt: json
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: synology-nfs
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 100Gi
+            selector: {}
+    alertmanager:
+      enabled: false
+    prometheusOperator:
+      enabled: false
+    grafana:
+      enabled: false
+    kubeApiServer:
+      enabled: true
+    kubelet:
+      enabled: true
+    kubeControllerManager:
+      enabled: true
+    coreDns:
+      enabled: true
+    kubeEtcd:
+      enabled: true
+    kubeScheduler:
+      enabled: true
+    kubeProxy:
+      enabled: true
+    kubeStateMetrics:
+      enabled: true
+      selfMonitor:
+        enabled: true
+    nodeExporter:
+      enabled: true
+    cleanPrometheusOperatorObjectNames: true
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: alertmanager
+  namespace: monitoring
+spec:
+  dependsOn:
+    - name: prometheus-operator
+  chart:
+    spec:
+      version: "43.x"
+      chart: kube-prometheus-stack
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+  interval: 1h
+  timeout: 5m
+  maxHistory: 5
+  install:
+    crds: Create
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+  uninstall:
+    keepHistory: false
+  values:
+    nameOverride: alertmanager
+    fullnameOverride: alertmanager
+    global:
+      rbac:
+        create: false
+    alertmanager:
+      enabled: false
+    prometheus:
+      enabled: false
+    grafana:
+      enabled: false
+    kubeApiServer:
+      enabled: false
+    kubelet:
+      enabled: false
+    kubeControllerManager:
+      enabled: false
+    coreDns:
+      enabled: false
+    kubeEtcd:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeProxy:
+      enabled: false
+    kubeStateMetrics:
+      enabled: false
+    nodeExporter:
+      enabled: false
+    prometheusOperator:
+      enabled: true
+    cleanPrometheusOperatorObjectNames: true
