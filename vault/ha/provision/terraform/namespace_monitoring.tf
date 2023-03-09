@@ -28,7 +28,7 @@ resource "vault_kubernetes_auth_backend_role" "monitoring-tf-runner" {
   bound_service_account_names      = [local.namespace_monitoring.runner]
   bound_service_account_namespaces = [local.namespace_monitoring.name]
   token_policies                   = ["${local.namespace_monitoring.name}-${local.namespace_monitoring.runner}"]
-  token_bound_cidrs                = var.kubernetes_cluster_cidrs
+  token_bound_cidrs                = [var.kubernetes_cluster_cidrs]
 }
 
 resource "vault_policy" "monitoring_tf_runner" {
