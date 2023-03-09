@@ -4,11 +4,14 @@ data "local_sensitive_file" "token" {
 
 provider "vault" {
   address = var.address
-  token   = data.local_sensitive_file.token.content
 
   auth_login {
     path   = "auth/kubernetes/login"
     method = "kubernetes"
+    parameters = {
+      "role"  = var.role
+      "token" = data.local_sensitive_file.token.content
+    }
   }
 }
 
