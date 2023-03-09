@@ -25,8 +25,7 @@ spec:
       version: "v1.x"
       sourceRef:
         kind: HelmRepository
-        name: repo-secrets-store-csi-driver
-        namespace: flux-helm
+        name: secrets-store-csi
       interval: 12h
       reconcileStrategy: ChartVersion
   interval: 1h
