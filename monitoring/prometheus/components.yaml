@@ -77,10 +77,10 @@ spec:
   timeout: 10m
   maxHistory: 5
   install:
-    crds: Create
+    crds: Skip
   upgrade:
     cleanupOnFail: true
-    crds: CreateReplace
+    crds: Skip
   uninstall:
     keepHistory: false
   valuesFrom:
@@ -92,14 +92,13 @@ spec:
     fullnameOverride: prometheus
     global:
       rbac:
-        create: false
+        create: true
+        createAggregateClusterRoles: true
     prometheus:
       enabled: true
       podDisruptionBudget:
         enabled: true
         minAvailable: 1
-      extraSecret:
-        data:
       prometheusSpec:
         logfmt: json
         storageSpec:
@@ -160,10 +159,10 @@ spec:
   timeout: 10m
   maxHistory: 5
   install:
-    crds: Create
+    crds: Skip
   upgrade:
     cleanupOnFail: true
-    crds: CreateReplace
+    crds: Skip
   uninstall:
     keepHistory: false
   values:
@@ -171,7 +170,8 @@ spec:
     fullnameOverride: alertmanager
     global:
       rbac:
-        create: false
+        create: true
+        createAggregateClusterRoles: true
     alertmanager:
       enabled: false
     prometheus:
