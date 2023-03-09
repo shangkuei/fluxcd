@@ -6,3 +6,4 @@ resources:
   - nfs-provisioner.yaml
   # - longhorn.yaml
   - vault.yaml
+  - monitoring.yaml
