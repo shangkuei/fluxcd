@@ -21,14 +21,18 @@ resource "vault_kv_secret_backend_v2" "secret_monitoring" {
 
 resource "vault_kubernetes_auth_backend_role" "monitoring-tf-runner" {
   depends_on = [
-    vault_policy.monitoring_tf_runner
+    vault_policy.monitoring_tf_runner,
+    vault_policy.monitoring_tf_runner_token,
   ]
   backend                          = vault_auth_backend.kubernetes.path
   role_name                        = "${local.namespace_monitoring.name}-${local.namespace_monitoring.runner}"
   bound_service_account_names      = [local.namespace_monitoring.runner]
   bound_service_account_namespaces = [local.namespace_monitoring.name]
-  token_policies                   = ["${local.namespace_monitoring.name}-${local.namespace_monitoring.runner}"]
-  token_bound_cidrs                = [var.kubernetes_cluster_cidrs]
+  token_policies = [
+    vault_policy.monitoring_tf_runner.name,
+    vault_policy.monitoring_tf_runner.name_token,
+  ]
+  token_bound_cidrs = [var.kubernetes_cluster_cidrs]
 }
 
 resource "vault_policy" "monitoring_tf_runner" {
@@ -38,6 +42,16 @@ resource "vault_policy" "monitoring_tf_runner" {
 # Write and manage secrets in key-value secrets engine
 path "${vault_mount.secret_monitoring.path}/data/*" {
   capabilities = [ "create", "read", "update", "delete" ]
+}
+EOT
+}
+
+resource "vault_policy" "monitoring_tf_runner_token" {
+  name = "${local.namespace_monitoring.name}-${local.namespace_monitoring.runner}-token"
+
+  policy = <<EOT
+path " auth/token/create" {
+  capabilities = [ "update" ]
 }
 EOT
 }
