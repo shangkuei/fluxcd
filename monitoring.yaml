@@ -37,4 +37,20 @@ spec:
   timeout: 10m
   force: true
   prune: true
-  wait: true
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: prometheus-operator-operator
+      namespace: monitoring
+    - apiVersion: apps/v1
+      kind: StatefulSet
+      name: prometheus-prometheus
+      namespace: monitoring
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: prometheus-kube-state-metrics
+      namespace: monitoring
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: alertmanager-operator
+      namespace: monitoring
