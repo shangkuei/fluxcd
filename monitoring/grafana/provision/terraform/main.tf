@@ -9,8 +9,8 @@ provider "vault" {
     path   = "auth/kubernetes/login"
     method = "kubernetes"
     parameters = {
-      "role"  = var.role
-      "token" = data.local_sensitive_file.token.content
+      "role" = var.role
+      "jwt"  = data.local_sensitive_file.token.content
     }
   }
 }
