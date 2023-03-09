@@ -8,7 +8,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: vault/dev/bootstrap/terraform
+  path: vault/dev/provision/terraform
   interval: 1h
   destroyResourcesOnDeletion: true
   refreshBeforeApply: true

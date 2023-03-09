@@ -44,13 +44,15 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: vault-dev-terraform-bootstrap
+  name: vault-dev-terraform-provision
   namespace: flux-system
 spec:
   dependsOn:
-    # The vaule-dev bootstrap stack should wait until the tf-controller is ready.
+    # The vaule-dev provision stack should wait until the tf-controller is ready.
     - name: flux-system
-    # The vaule-dev bootstrap stack should wait until the vault-dev is ready.
+    # The vaule-dev provision stack should wait until the vault-base is ready.
+    - name: vault-base
+    # The vaule-dev provision stack should wait until the vault-dev is ready.
     - name: vault-dev-helm-release
   sourceRef:
     kind: GitRepository
@@ -59,7 +61,7 @@ spec:
     provider: sops
     secretRef:
       name: flux-system
-  path: vault/dev/bootstrap
+  path: vault/dev/provision
   interval: 1h
   timeout: 10m
   force: true
@@ -81,8 +83,8 @@ spec:
     - name: vault-base
     # The vaule-ha should wait until the vault-dev is ready.
     - name: vault-dev-helm-release
-    # The vaule-ha should wait until the vault-dev Terraform bootstrap stack is ready.
-    - name: vault-dev-terraform-bootstrap
+    # The vaule-ha should wait until the vault-dev Terraform provision stack is ready.
+    - name: vault-dev-terraform-provision
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -94,5 +96,36 @@ spec:
   healthChecks:
     - apiVersion: apps/v1
       kind: StatefulSet
+      name: vault-ha
+      namespace: vault
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: vault-ha-terraform-provision
+  namespace: flux-system
+spec:
+  dependsOn:
+    # The vaule-ha provision stack should wait until the tf-controller is ready.
+    - name: flux-system
+    # The vaule-ha provision stack should wait until the vault-base is ready.
+    - name: vault-base
+    # The vaule-ha provision stack should wait until the vault-dev is ready.
+    - name: vault-ha
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: flux-system
+  path: vault/ha/provision
+  interval: 1h
+  timeout: 10m
+  force: true
+  prune: true
+  healthChecks:
+    - apiVersion: infra.contrib.fluxcd.io/v1alpha1
+      kind: Terraform
       name: vault-ha
       namespace: vault
