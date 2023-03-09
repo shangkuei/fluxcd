@@ -81,3 +81,24 @@ spec:
       kind: Terraform
       name: grafana
       namespace: monitoring
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-grafana-stack
+  namespace: flux-system
+spec:
+  dependsOn:
+    # The grafana stack should wait until the monitoring-base is ready.
+    - name: monitoring-base
+    # The grafana stack should wait until the grafana terraform stack is ready.
+    - name: monitoring-grafana-terraform-provision
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: monitoring/grafana
+  interval: 1h
+  timeout: 10m
+  force: true
+  prune: true
+  wait: true
