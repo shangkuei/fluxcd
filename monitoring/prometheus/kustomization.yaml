@@ -4,6 +4,7 @@ resources:
   - components.yaml
 configMapGenerator:
   - name: values-node
+    namespace: monitoring
     files:
       - values-node.yaml=node.yaml
 configurations:
