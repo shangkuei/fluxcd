@@ -40,6 +40,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    nameOverride: secrets-store-csi
+    fullnameOverride: secrets-store-csi
     syncSecret:
       enabled: true
     tokenRequests:
