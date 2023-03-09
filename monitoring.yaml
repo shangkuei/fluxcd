@@ -54,3 +54,30 @@ spec:
       kind: Deployment
       name: alertmanager-operator
       namespace: monitoring
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-grafana-terraform-provision
+  namespace: flux-system
+spec:
+  dependsOn:
+    # The grafana provision stack should wait until the tf-controller is ready.
+    - name: flux-system
+    # The grafana provision stack should wait until the vault-ha provision stack is ready.
+    - name: vault-ha-terraform-provision
+    # The grafana provision stack should wait until the monitoring-base is ready.
+    - name: monitoring-base
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: monitoring/grafana/provision
+  interval: 1h
+  timeout: 10m
+  force: true
+  prune: true
+  healthChecks:
+    - apiVersion: infra.contrib.fluxcd.io/v1alpha1
+      kind: Terraform
+      name: grafana
+      namespace: monitoring

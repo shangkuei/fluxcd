@@ -11,3 +11,25 @@ metadata:
 spec:
   interval: 60m
   url: https://prometheus-community.github.io/helm-charts
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tf-runner
+  namespace: monitoring
+  labels:
+    control-plane: controller
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: monitoring-tf-runner-rolebinding
+  namespace: monitoring
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tf-runner-role
+subjects:
+  - kind: ServiceAccount
+    name: tf-runner
+    namespace: monitoring
