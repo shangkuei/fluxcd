@@ -1,0 +1,73 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  chart:
+    spec:
+      version: "43.x"
+      chart: kube-prometheus-stack
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+  interval: 1h
+  timeout: 10m
+  maxHistory: 5
+  install:
+    crds: Create
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+  uninstall:
+    keepHistory: false
+  values:
+    nameOverride: prometheus-operator
+    fullnameOverride: prometheus-operator
+    global:
+      rbac:
+        create: true
+        createAggregateClusterRoles: true
+    alertmanager:
+      enabled: false
+    prometheus:
+      enabled: false
+    prometheusOperator:
+      enabled: true
+    kubeApiServer:
+      enabled: false
+    kubelet:
+      enabled: false
+    kubeControllerManager:
+      enabled: false
+    coreDns:
+      enabled: false
+    kubeEtcd:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeProxy:
+      enabled: false
+    kubeStateMetrics:
+      enabled: false
+    nodeExporter:
+      enabled: false
+    grafana:
+      enabled: true
+      defaultDashboardsTimezone: Asia/Taipei
+      podDisruptionBudget:
+        minAvailable: 1
+      persistence:
+        enabled: true
+        type: pvc
+        storageClassName: synology-nfs
+        accessModes:
+          - ReadWriteOnce
+        size: 10Gi
+      adminPassword: null
+      admin:
+        existingSecret: ""
+        userKey: user
+        passwordKey: password
+    cleanPrometheusOperatorObjectNames: true

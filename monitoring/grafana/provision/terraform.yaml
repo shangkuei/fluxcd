@@ -1,0 +1,16 @@
+apiVersion: infra.contrib.fluxcd.io/v1alpha1
+kind: Terraform
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: grafana/provision/terraform
+  interval: 1h
+  destroyResourcesOnDeletion: true
+  refreshBeforeApply: true
+  storeReadablePlan: human
+  approvePlan: auto
