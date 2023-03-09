@@ -111,7 +111,7 @@ spec:
     # The vaule-ha provision stack should wait until the vault-base is ready.
     - name: vault-base
     # The vaule-ha provision stack should wait until the vault-dev is ready.
-    - name: vault-ha
+    - name: vault-ha-helm-release
   sourceRef:
     kind: GitRepository
     name: flux-system
