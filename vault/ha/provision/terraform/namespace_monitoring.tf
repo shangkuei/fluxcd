@@ -50,7 +50,7 @@ resource "vault_policy" "monitoring_tf_runner_token" {
   name = "${local.namespace_monitoring.name}-${local.namespace_monitoring.runner}-token"
 
   policy = <<EOT
-path " auth/token/create" {
+path "auth/token/create" {
   capabilities = [ "update" ]
 }
 EOT
