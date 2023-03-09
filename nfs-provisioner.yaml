@@ -10,7 +10,7 @@ spec:
     name: flux-system
   path: nfs-provisioner/
   interval: 1h
-  timeout: 5m
+  timeout: 10m
   force: true
   prune: true
   healthChecks:

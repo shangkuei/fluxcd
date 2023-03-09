@@ -10,7 +10,7 @@ spec:
     name: flux-system
   path: utils/cluster-proportional-autoscaler/
   interval: 1h
-  timeout: 5m
+  timeout: 10m
   force: true
   prune: true
   targetNamespace: kube-system

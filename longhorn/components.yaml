@@ -28,7 +28,7 @@ spec:
       interval: 12h
       reconcileStrategy: ChartVersion
   interval: 1h
-  timeout: 5m
+  timeout: 10m
   maxHistory: 5
   install:
     remediation:

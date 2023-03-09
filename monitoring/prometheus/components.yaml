@@ -13,7 +13,7 @@ spec:
         kind: HelmRepository
         name: prometheus-community
   interval: 1h
-  timeout: 5m
+  timeout: 10m
   maxHistory: 5
   install:
     crds: Create
@@ -74,7 +74,7 @@ spec:
         kind: HelmRepository
         name: prometheus-community
   interval: 1h
-  timeout: 5m
+  timeout: 10m
   maxHistory: 5
   install:
     crds: Create
@@ -158,7 +158,7 @@ spec:
         kind: HelmRepository
         name: prometheus-community
   interval: 1h
-  timeout: 5m
+  timeout: 10m
   maxHistory: 5
   install:
     crds: Create
