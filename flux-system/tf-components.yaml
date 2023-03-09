@@ -43,8 +43,5 @@ spec:
     runner:
       image:
         tag: v0.14.0
-      serviceAccount:
-        allowedNamespaces:
-          - vault
     metrics:
       enabled: true

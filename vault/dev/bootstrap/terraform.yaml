@@ -10,7 +10,9 @@ spec:
     namespace: flux-system
   path: vault/dev/bootstrap/terraform
   interval: 1h
-  alwaysCleanupRunnerPod: true
+  destroyResourcesOnDeletion: true
+  refreshBeforeApply: true
+  storeReadablePlan: human
   approvePlan: auto
   varsFrom:
     - kind: Secret
