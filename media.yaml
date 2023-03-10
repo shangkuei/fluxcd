@@ -55,8 +55,12 @@ spec:
   dependsOn:
     # The plex meta manager should wait until the nfs-provisioner is ready.
     - name: nfs-provisioner
+    # The plex meta manager  stack should wait until the vault-ha is ready.
+    - name: vault-ha-helm-release
+    # The plex meta manager  should wait until the media-base is ready.
+    - name: media-base
     # The plex meta manager should wait until the credentials terraform stack is ready.
-    - name: media-terraform-credentials
+    - name: media-plex-meta-manager-terraform-credential
   sourceRef:
     kind: GitRepository
     name: flux-system
