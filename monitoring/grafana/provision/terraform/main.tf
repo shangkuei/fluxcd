@@ -15,7 +15,7 @@ provider "vault" {
   }
 }
 
-resource "random_password" "user" {
+resource "random_password" "username" {
   length  = 12
   special = false
 }
@@ -31,7 +31,7 @@ resource "vault_kv_secret_v2" "grafana_admin" {
   delete_all_versions = true
   data_json = jsonencode(
     {
-      user     = random_password.user.result,
+      username = random_password.username.result,
       password = random_password.password.result,
     }
   )

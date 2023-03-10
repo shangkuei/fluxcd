@@ -1,7 +1,8 @@
 locals {
   namespace_monitoring = {
-    name   = "monitoring"
-    runner = "tf-runner"
+    name    = "monitoring"
+    runner  = "tf-runner"
+    grafana = "grafana"
   }
 }
 
@@ -19,20 +20,25 @@ resource "vault_kv_secret_backend_v2" "secret_monitoring" {
   delete_version_after = 12600
 }
 
-resource "vault_kubernetes_auth_backend_role" "monitoring-tf-runner" {
+resource "vault_kubernetes_auth_backend_role" "monitoring_tf_runner" {
   depends_on = [
+    vault_policy.token,
     vault_policy.monitoring_tf_runner,
-    vault_policy.monitoring_tf_runner_token,
   ]
   backend                          = vault_auth_backend.kubernetes.path
   role_name                        = "${local.namespace_monitoring.name}-${local.namespace_monitoring.runner}"
   bound_service_account_names      = [local.namespace_monitoring.runner]
   bound_service_account_namespaces = [local.namespace_monitoring.name]
   token_policies = [
+    vault_policy.token.name,
     vault_policy.monitoring_tf_runner.name,
-    vault_policy.monitoring_tf_runner_token.name,
   ]
   token_bound_cidrs = [var.kubernetes_cluster_cidrs]
+}
+
+moved {
+  from = vault_kubernetes_auth_backend_role.monitoring-tf-runner
+  to   = vault_kubernetes_auth_backend_role.monitoring_tf_runner
 }
 
 resource "vault_policy" "monitoring_tf_runner" {
@@ -62,12 +68,25 @@ path "${vault_mount.secret_monitoring.path}/metadata/*" {
 EOT
 }
 
-resource "vault_policy" "monitoring_tf_runner_token" {
-  name = "${local.namespace_monitoring.name}-${local.namespace_monitoring.runner}-token"
+resource "vault_kubernetes_auth_backend_role" "monitoring_grafana" {
+  depends_on = [
+    vault_policy.monitoring_grafana,
+  ]
+  backend                          = vault_auth_backend.kubernetes.path
+  role_name                        = "${local.namespace_monitoring.name}-${local.namespace_monitoring.grafana}"
+  bound_service_account_names      = [local.namespace_monitoring.grafana]
+  bound_service_account_namespaces = [local.namespace_monitoring.name]
+  token_policies                   = [vault_policy.monitoring_grafana.name]
+  token_bound_cidrs                = [var.kubernetes_cluster_cidrs]
+}
+
+resource "vault_policy" "monitoring_grafana" {
+  name = "${local.namespace_monitoring.name}-${local.namespace_monitoring.grafana}"
 
   policy = <<EOT
-path "auth/token/create" {
-  capabilities = [ "update" ]
+# read admin secrets in key-value secrets engine
+path "${vault_mount.secret_monitoring.path}/data/grafana/admin" {
+  capabilities = [ "read" ]
 }
 EOT
 }

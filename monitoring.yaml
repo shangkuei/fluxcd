@@ -40,19 +40,23 @@ spec:
   healthChecks:
     - apiVersion: apps/v1
       kind: Deployment
-      name: prometheus-operator-operator
+      name: prometheus-operator
       namespace: monitoring
     - apiVersion: apps/v1
       kind: StatefulSet
-      name: prometheus-prometheus
+      name: prometheus
       namespace: monitoring
     - apiVersion: apps/v1
       kind: Deployment
-      name: prometheus-kube-state-metrics
+      name: kube-state-metrics
+      namespace: monitoring
+    - apiVersion: apps/v1
+      kind: DaemonSet
+      name: node-exporter
       namespace: monitoring
     - apiVersion: apps/v1
       kind: Deployment
-      name: alertmanager-operator
+      name: alertmanager
       namespace: monitoring
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -89,6 +93,10 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
+    # The grafana stack should wait until the secrets-store-csi stack is ready.
+    - name: secrets-store-csi
+    # The grafana stack should wait until the grafana terraform stack is ready.
+    - name: vault-csi-helm-release
     # The grafana stack should wait until the monitoring-base is ready.
     - name: monitoring-base
     # The grafana stack should wait until the grafana terraform stack is ready.
@@ -101,4 +109,8 @@ spec:
   timeout: 10m
   force: true
   prune: true
-  wait: true
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: grafana
+      namespace: monitoring

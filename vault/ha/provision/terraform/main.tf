@@ -11,3 +11,13 @@ resource "vault_kubernetes_auth_backend_config" "example" {
   kubernetes_host        = var.kubernetes_host
   disable_iss_validation = "true"
 }
+
+resource "vault_policy" "token" {
+  name = "terraform-vault-provider-token"
+
+  policy = <<EOT
+path "auth/token/create" {
+  capabilities = [ "update" ]
+}
+EOT
+}

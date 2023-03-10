@@ -1,3 +1,32 @@
+---
+apiVersion: secrets-store.csi.x-k8s.io/v1alpha1
+kind: SecretProviderClass
+metadata:
+  name: monitoring-grafana-admin
+spec:
+  provider: vault
+  secretObjects:
+    - data:
+        - key: username
+          objectName: username
+        - key: password
+          objectName: password
+      secretName: grafana-admin
+      type: Opaque
+  parameters:
+    roleName: monitoring-grafana
+    vaultAddress: "https://vault-ha.vault:8200"
+    # vaultTLSServerName: "vault.shangkuei.xyz"
+    # vaultCACertPath: '/vault/tls/ca.crt'
+    audience: secrets-store-csi
+    objects: |
+      - objectName: "username"
+        secretPath: "secret/monitoring/data/grafana/admin"
+        secretKey: "username"
+      - objectName: "password"
+        secretPath: "secret/monitoring/data/grafana/admin"
+        secretKey: "password"
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -16,15 +45,15 @@ spec:
   timeout: 10m
   maxHistory: 5
   install:
-    crds: Create
+    crds: Skip
   upgrade:
     cleanupOnFail: true
-    crds: CreateReplace
+    crds: Skip
   uninstall:
     keepHistory: false
   values:
-    nameOverride: prometheus-operator
-    fullnameOverride: prometheus-operator
+    nameOverride: grafana
+    fullnameOverride: grafana
     global:
       rbac:
         create: true
@@ -67,7 +96,15 @@ spec:
         size: 10Gi
       adminPassword: null
       admin:
-        existingSecret: ""
-        userKey: user
+        existingSecret: grafana-admin
+        userKey: username
         passwordKey: password
+      extraVolumeMounts:
+        - name: grafana-admin
+          csi: true
+          data:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "monitoring-grafana-admin"
     cleanPrometheusOperatorObjectNames: true

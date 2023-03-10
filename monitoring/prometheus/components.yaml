@@ -24,7 +24,7 @@ spec:
     keepHistory: false
   values:
     nameOverride: prometheus-operator
-    fullnameOverride: prometheus-operator
+    fullnameOverride: ""
     global:
       rbac:
         create: true
@@ -33,8 +33,6 @@ spec:
       enabled: false
     prometheus:
       enabled: false
-    prometheusOperator:
-      enabled: true
     grafana:
       enabled: false
     kubeApiServer:
@@ -55,6 +53,8 @@ spec:
       enabled: false
     nodeExporter:
       enabled: false
+    prometheusOperator:
+      enabled: true
     cleanPrometheusOperatorObjectNames: true
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
@@ -89,13 +89,21 @@ spec:
       optional: true
   values:
     nameOverride: prometheus
-    fullnameOverride: prometheus
+    fullnameOverride: ""
     global:
       rbac:
         create: true
         createAggregateClusterRoles: true
+    alertmanager:
+      enabled: false
+    prometheusOperator:
+      enabled: false
+    grafana:
+      enabled: false
     prometheus:
       enabled: true
+      serviceAccount:
+        name: prometheus
       podDisruptionBudget:
         enabled: true
         minAvailable: 1
@@ -111,12 +119,6 @@ spec:
                 requests:
                   storage: 100Gi
             selector: {}
-    alertmanager:
-      enabled: false
-    prometheusOperator:
-      enabled: false
-    grafana:
-      enabled: false
     kubeApiServer:
       enabled: true
     kubelet:
@@ -133,10 +135,18 @@ spec:
       enabled: true
     kubeStateMetrics:
       enabled: true
+      nameverride: kube-state-metrics
+      fullnameOverride: kube-state-metrics
+      serviceAccount:
+        name: kube-state-metrics
       selfMonitor:
         enabled: true
     nodeExporter:
       enabled: true
+      nameverride: node-exporter
+      fullnameOverride: node-exporter
+      serviceAccount:
+        name: node-exporter
     cleanPrometheusOperatorObjectNames: true
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
@@ -167,13 +177,11 @@ spec:
     keepHistory: false
   values:
     nameOverride: alertmanager
-    fullnameOverride: alertmanager
+    fullnameOverride: ""
     global:
       rbac:
         create: true
         createAggregateClusterRoles: true
-    alertmanager:
-      enabled: false
     prometheus:
       enabled: false
     grafana:
@@ -197,5 +205,9 @@ spec:
     nodeExporter:
       enabled: false
     prometheusOperator:
+      enabled: false
+    alertmanager:
       enabled: true
+      serviceAccount:
+        name: alertmanager
     cleanPrometheusOperatorObjectNames: true
