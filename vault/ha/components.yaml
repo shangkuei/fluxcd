@@ -29,10 +29,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    # global:
-    #   tlsDisable: false
-    #   serverTelemetry:
-    #     prometheusOperator: true
+    global:
+      # tlsDisable: false
+      serverTelemetry:
+        prometheusOperator: true
     injector:
       logLevel: info
       logFormat: json
