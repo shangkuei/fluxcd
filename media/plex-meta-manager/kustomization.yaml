@@ -4,7 +4,6 @@ secretGenerator:
   - name: pmm-config-template
     namespace: media
     files:
-      - ca.cert.pem
       - config-movie.yaml.tmpl
       - config-show.yaml.tmpl
       - config-top-metadata.yaml.tmpl
