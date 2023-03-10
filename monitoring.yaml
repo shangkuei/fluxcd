@@ -81,6 +81,10 @@ spec:
   force: true
   prune: true
   healthChecks:
+    - apiVersion: source.toolkit.fluxcd.io/v1beta2
+      kind: GitRepository
+      name: grafana
+      namespace: monitoring
     - apiVersion: infra.contrib.fluxcd.io/v1alpha1
       kind: Terraform
       name: grafana
