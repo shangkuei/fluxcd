@@ -90,7 +90,15 @@ spec:
       defaultDashboardsTimezone: Asia/Taipei
       podDisruptionBudget:
         minAvailable: 1
-      persistOence:
+      extraInitContainers:
+        - name: init-grafana-admin
+          image: busybox
+          command:
+            - "true"
+          volumeMounts:
+            - name: grafana-admin
+              mountPath: /vault/csi/admin
+      persistence:
         enabled: true
         type: pvc
         storageClassName: synology-nfs
