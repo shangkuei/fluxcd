@@ -55,6 +55,8 @@ spec:
   values:
     nameOverride: kube-prometheus-stack
     fullnameOverride: grafana
+    defaultRules:
+      create: false
     global:
       rbac:
         create: true
