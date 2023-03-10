@@ -8,3 +8,4 @@ resources:
   # - longhorn.yaml
   - vault.yaml
   - monitoring.yaml
+  - media.yaml

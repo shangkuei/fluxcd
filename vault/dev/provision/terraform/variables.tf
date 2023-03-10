@@ -5,6 +5,7 @@ variable "address" {
 }
 
 variable "token" {
+  sensitive   = true
   type        = string
   description = "vault provider token"
 }

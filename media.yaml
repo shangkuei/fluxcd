@@ -1,0 +1,47 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: media-base
+  namespace: flux-system
+spec:
+  dependsOn:
+    # The media flow should wait until the flux system is ready.
+    - name: flux-system
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: media/base
+  interval: 1h
+  timeout: 10m
+  force: true
+  prune: true
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: media-plex-meta-manager-terraform-credential
+  namespace: flux-system
+spec:
+  dependsOn:
+    # The credential terraform stack stack should wait until the tf-controller is ready.
+    - name: flux-system
+    # The credential terraform stack should wait until the vault-ha is ready.
+    - name: vault-ha-helm-release
+    # The credential terraform stack should wait until the vault-ha terraform stack is ready.
+    - name: vault-ha-terraform-provision
+    # The credential terraform stack should wait until the media-base is ready.
+    - name: media-base
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: flux-system
+  path: media/plex-meta-manager/credential
+  interval: 1h
+  timeout: 10m
+  force: true
+  prune: true
+  wait: true
