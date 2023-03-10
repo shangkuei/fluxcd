@@ -1,0 +1,29 @@
+external_templates:
+  - pmm: templates
+    template_variables:
+      collection_section: "01"
+      image: chart/TMDb Popular
+  - file: /config/templates/tmdb.yaml
+
+translations:
+  pmm: translations
+
+collections:
+  Trending Movies:
+    template:
+      - name: separator
+        separator: chart
+      - name: translation
+        translation_key: separator
+        separator_name: 類別
+        separator_summary: "章節分隔: 類別"
+
+  TMDB Movie Discover:
+    template:
+      - name: tmdb_movie
+        vote_average.gte: 6.5
+      - name: shared
+      - name: arr
+      - name: custom
+      - name: translation
+        translation_key: tmdb_popular

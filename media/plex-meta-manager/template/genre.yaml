@@ -1,0 +1,35 @@
+external_templates:
+  pmm: templates
+  template_variables:
+    collection_section: "06"
+
+translations:
+  pmm: translations
+
+collections:
+  Genre:
+    template:
+      - name: separator
+        separator: genre
+      - name: translation
+        key_name: Genre
+        translation_key: separator
+        separator_name: 類別
+        separator_summary: "章節分隔: 類別"
+
+dynamic_collections:
+  Dynamic Genre:
+    type: genre
+    title_format: <<key_name>>
+    template:
+      - smart_filter
+      - translation
+      - shared
+    template_variables:
+      search_term:
+        default: genre
+      translation_key:
+        default: genre
+      genre_name:
+        default: <<key_name>>
+    sync: true

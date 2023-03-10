@@ -1,0 +1,38 @@
+external_templates:
+  pmm: templates
+  template_variables:
+    collection_section: "20"
+
+translations:
+  pmm: translations
+
+collections:
+  Writer:
+    template:
+      - name: separator
+        separator: chart
+      - name: translation
+        key_name: Writer
+        translation_key: separator
+        separator_name: 類別
+        separator_summary: "章節分隔: 系列"
+
+dynamic_collections:
+  Dynamic Writer:
+    type: writer
+    data:
+      depth: 1
+      minimum: 3
+    title_format: <<key_name>>
+    template:
+      - smart_filter
+      - translation
+      - shared
+    template_variables:
+      search_term:
+        default: writer
+      translation_key:
+        default: writer
+      writer_name:
+        default: <<key_name>>
+    sync: true

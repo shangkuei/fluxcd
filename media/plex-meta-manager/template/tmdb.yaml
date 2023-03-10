@@ -1,0 +1,42 @@
+templates:
+  tmdb_movie:
+    default:
+      limit: 10
+      limit_<<key>>: <<limit>>
+    optional:
+      - primary_release_date.gte
+      - vote_average.gte
+      - with_genres
+      - without_genres
+      - with_original_language
+    tmdb_discover:
+      limit: <<limit_<<key>>>>
+      include_adult: true
+      primary_release_date.gte: <<primary_release_date.gte>>
+      vote_average.gte: <<vote_average.gte>>
+      without_genres: <<without_genres>>
+      with_genres: <<with_genres>>
+      with_original_language: <<with_original_language>>
+      sort_by: popularity.desc
+
+  tmdb_show:
+    default:
+      limit: 10
+      limit_<<key>>: <<limit>>
+      timezone: Asia/Taipei
+    optional:
+      - air_date.gte
+      - vote_average.gte
+      - with_genres
+      - without_genres
+      - with_original_language
+    tmdb_discover:
+      limit: <<limit_<<key>>>>
+      timezone: <<timezone>>
+      include_null_first_air_dates: true
+      air_date.gte: <<air_date.gte>>
+      vote_average.gte: <<vote_average.gte>>
+      with_genres: <<with_genres>>
+      without_genres: <<without_genres>>
+      with_original_language: <<with_original_language>>
+      sort_by: popularity.desc

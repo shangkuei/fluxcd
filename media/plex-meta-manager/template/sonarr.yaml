@@ -1,0 +1,44 @@
+external_templates:
+  - pmm: templates
+    template_variables:
+      collection_section: "02"
+      image: chart/<<collection_name_encoded>>
+      conditionals:
+        limit:
+          default: 10
+          conditions:
+            - key: en
+              value: 10
+            - key: zh
+              value: 5
+        sonarr_language:
+          default: English
+          conditions:
+            - key: en
+              value: English
+            - key: zh
+              value: Chinese
+  - file: /config/templates/tmdb.yaml
+
+translations:
+  pmm: translations
+
+collections:
+  Trending Movies:
+    template:
+      - name: separator
+        separator: chart
+      - name: translation
+        translation_key: separator
+        separator_name: 類別
+        separator_summary: "章節分隔: 類別"
+
+  TMDB TV Discover:
+    template:
+      - name: tmdb_show
+        vote_average.gte: 6.5
+      - name: shared
+      - name: arr
+      - name: custom
+      - name: translation
+        translation_key: tmdb_popular

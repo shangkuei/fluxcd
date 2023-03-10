@@ -1,0 +1,38 @@
+external_templates:
+  pmm: templates
+  template_variables:
+    collection_section: "17"
+
+translations:
+  pmm: translations
+
+collections:
+  AV Actresses:
+    template:
+      - name: separator
+        separator: actor
+      - name: translation
+        key_name: Actors
+        translation_key: separator
+        separator_name: 女優
+        separator_summary: "章節分隔: 女優"
+
+dynamic_collections:
+  Dynamic AV Actresses:
+    type: producer
+    data:
+      depth: 1
+      minimum: 5
+    title_format: <<key_name>>
+    template:
+      - smart_filter
+      - translation
+      - shared
+    template_variables:
+      search_term:
+        default: producer
+      translation_key:
+        default: producer
+      producer_name:
+        default: <<key_name>>
+    sync: true

@@ -1,0 +1,75 @@
+external_templates:
+  pmm: templates
+  template_variables:
+    collection_section: "15"
+    conditionals:
+      image:
+        default: resolution/<<key>>
+        conditions:
+          - style: standards
+            value: resolution/standards/<<key>>
+      resolution_name:
+        default: <<key_name>>
+        conditions:
+          - style: standards
+            key: 480
+            value: SD
+          - style: standards
+            key: 720
+            value: HD
+          - style: standards
+            key: 1080
+            value: Full HD
+          - style: standards
+            key: 4k
+            value: Ultra HD
+
+translations:
+  pmm: translations
+
+collections:
+  Resolution Collections:
+    template:
+      - name: separator
+        separator: resolution
+      - name: translation
+        key_name: Resolution
+        translation_key: separator
+        separator_name: 解析度
+        separator_summary: "章節分隔: 解析度"
+
+dynamic_collections:
+  Dynamic Resolution:
+    type: resolution
+    title_format: <<key_name>>
+    template:
+      - smart_filter
+      - translation
+      - shared
+    template_variables:
+      search_term:
+        default: resolution
+      translation_key:
+        default: resolution
+      style:
+        default: standards
+      order:
+        4k: "1_"
+        1080: "2_"
+        720: "3_"
+        480: "4_"
+    exclude:
+      - 480
+      - 4k
+    addons:
+      4k:
+        - 8k
+      1080:
+        - 2k
+      480:
+        - 144
+        - 240
+        - 360
+        - sd
+        - 576
+    sync: true
