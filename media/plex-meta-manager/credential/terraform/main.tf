@@ -16,43 +16,61 @@ provider "vault" {
 }
 
 resource "vault_kv_secret_v2" "notifiarr" {
-  mount     = var.secret_path
-  name      = "notifiarr"
-  data_json = jsonencode(var.notifiarr)
+  mount = var.secret_path
+  name  = "notifiarr"
+  data_json = jsonencode({
+    api = var.notifiarr_api
+  })
 }
 
 resource "vault_kv_secret_v2" "mdb" {
-  mount     = var.secret_path
-  name      = "mdb"
-  data_json = jsonencode(var.mdb)
+  mount = var.secret_path
+  name  = "mdb"
+  data_json = jsonencode({
+    api = var.mdb_api
+  })
 }
 
 resource "vault_kv_secret_v2" "omdb" {
-  mount     = var.secret_path
-  name      = "omdb"
-  data_json = jsonencode(var.omdb)
+  mount = var.secret_path
+  name  = "omdb"
+  data_json = jsonencode({
+    api = var.omdb_api
+  })
 }
 
 resource "vault_kv_secret_v2" "tmdb" {
-  mount     = var.secret_path
-  name      = "tmdb"
-  data_json = jsonencode(var.tmdb)
+  mount = var.secret_path
+  name  = "tmdb"
+  data_json = jsonencode({
+    api_v3 = var.tmdb_api_v3
+    api_v4 = var.tmdb_api_v4
+  })
 }
 
 resource "vault_kv_secret_v2" "plex" {
-  mount     = var.secret_path
-  name      = "plex"
-  data_json = jsonencode(var.plex)
+  mount = var.secret_path
+  name  = "plex"
+  data_json = jsonencode({
+    url   = var.plex_url
+    token = var.plex_token
+  })
 }
 
 resource "vault_kv_secret_v2" "radarr" {
-  mount     = var.secret_path
-  name      = "radarr"
-  data_json = jsonencode(var.radarr)
+  mount = var.secret_path
+  name  = "radarr"
+  data_json = jsonencode({
+    url   = var.radarr_url
+    token = var.radarr_token
+  })
 }
 
 resource "vault_kv_secret_v2" "sonarr" {
-  mount     = var.secret_path
-  name      = "sonarr"
-  data_json = jsonencode(var.sonarr)
+  mount = var.secret_path
+  name  = "sonarr"
+  data_json = jsonencode({
+    url   = var.sonarr_url
+    token = var.sonarr_token
+  })
 }

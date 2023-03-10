@@ -16,63 +16,68 @@ variable "secret_path" {
   description = "vault kv_v2 secret backend mount path"
 }
 
-variable "notifiarr" {
-  sensitive = true
-  type = object({
-    api = string
-  })
+variable "notifiarr_api" {
+  sensitive   = true
+  type        = string
   description = "notifiarr credentials"
 }
 
-variable "mdb" {
-  sensitive = true
-  type = object({
-    api = string
-  })
+variable "mdb_api" {
+  sensitive   = true
+  type        = string
   description = "mdb credentials"
 }
 
-variable "omdb" {
-  sensitive = true
-  type = object({
-    api = string
-  })
+variable "omdb_api" {
+  sensitive   = true
+  type        = string
   description = "omdb credentials"
 }
 
-variable "tmdb" {
-  sensitive = true
-  type = object({
-    api_v3 = string
-    api_v4 = string
-  })
+variable "tmdb_api_v3" {
+  sensitive   = true
+  type        = string
   description = "tmdb credentials"
 }
 
+variable "tmdb_api_v4" {
+  sensitive   = true
+  type        = string
+  description = "tmdb credentials"
+}
 
-variable "plex" {
-  sensitive = true
-  type = object({
-    url   = string
-    token = string
-  })
+variable "plex_url" {
+  sensitive   = true
+  type        = string
   description = "plex credentials"
 }
 
-variable "radarr" {
-  sensitive = true
-  type = object({
-    url   = string
-    token = string
-  })
+variable "plex_token" {
+  sensitive   = true
+  type        = string
+  description = "plex credentials"
+}
+
+variable "radarr_url" {
+  sensitive   = true
+  type        = string
   description = "radarr credentials"
 }
 
-variable "sonarr" {
-  sensitive = true
-  type = object({
-    url   = string
-    token = string
-  })
+variable "radarr_token" {
+  sensitive   = true
+  type        = string
+  description = "radarr credentials"
+}
+
+variable "sonarr_url" {
+  sensitive   = true
+  type        = string
+  description = "sonarr credentials"
+}
+
+variable "sonarr_token" {
+  sensitive   = true
+  type        = string
   description = "sonarr credentials"
 }
