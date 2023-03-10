@@ -25,6 +25,12 @@ spec:
   values:
     nameOverride: kube-prometheus-stack
     fullnameOverride: prometheus
+    defaultRules:
+      create: true
+      rules:
+        alertmanager: false
+        general: false
+        prometheusOperator: false
     global:
       rbac:
         create: true
@@ -90,6 +96,36 @@ spec:
   values:
     nameOverride: kube-prometheus-stack
     fullnameOverride: prometheus
+    defaultRules:
+      create: true
+      rules:
+        alertmanager: false
+        etcd: false
+        configReloaders: false
+        k8s: false
+        kubeApiserverAvailability: false
+        kubeApiserverBurnrate: false
+        kubeApiserverHistogram: false
+        kubeApiserverSlos: false
+        kubeControllerManager: false
+        kubelet: false
+        kubeProxy: false
+        kubePrometheusGeneral: false
+        kubePrometheusNodeRecording: false
+        kubernetesApps: false
+        kubernetesResources: false
+        kubernetesStorage: false
+        kubernetesSystem: false
+        kubeSchedulerAlerting: false
+        kubeSchedulerRecording: false
+        kubeStateMetrics: false
+        network: false
+        node: false
+        nodeExporterAlerting: false
+        nodeExporterRecording: false
+        prometheus: false
+        general: true
+        prometheusOperator: true
     global:
       rbac:
         create: true
@@ -177,6 +213,36 @@ spec:
   values:
     nameOverride: kube-prometheus-stack
     fullnameOverride: alertmanager
+    defaultRules:
+      create: true
+      rules:
+        etcd: false
+        configReloaders: false
+        general: false
+        k8s: false
+        kubeApiserverAvailability: false
+        kubeApiserverBurnrate: false
+        kubeApiserverHistogram: false
+        kubeApiserverSlos: false
+        kubeControllerManager: false
+        kubelet: false
+        kubeProxy: false
+        kubePrometheusGeneral: false
+        kubePrometheusNodeRecording: false
+        kubernetesApps: false
+        kubernetesResources: false
+        kubernetesStorage: false
+        kubernetesSystem: false
+        kubeSchedulerAlerting: false
+        kubeSchedulerRecording: false
+        kubeStateMetrics: false
+        network: false
+        node: false
+        nodeExporterAlerting: false
+        nodeExporterRecording: false
+        prometheus: false
+        prometheusOperator: false
+        alertmanager: true
     global:
       rbac:
         create: true
