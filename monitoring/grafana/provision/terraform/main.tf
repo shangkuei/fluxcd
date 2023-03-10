@@ -26,9 +26,8 @@ resource "random_password" "password" {
 }
 
 resource "vault_kv_secret_v2" "grafana_admin" {
-  mount               = var.secret_path
-  name                = "grafana/admin"
-  delete_all_versions = true
+  mount = var.secret_path
+  name  = "grafana/admin"
   data_json = jsonencode(
     {
       username = random_password.username.result,
