@@ -23,8 +23,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    nameOverride: prometheus-operator
-    fullnameOverride: monitoring
+    nameOverride: kube-prometheus-stack
+    fullnameOverride: prometheus
     global:
       rbac:
         create: true
@@ -88,8 +88,8 @@ spec:
       name: vaules-node
       optional: true
   values:
-    nameOverride: prometheus
-    fullnameOverride: monitoring
+    nameOverride: kube-prometheus-stack
+    fullnameOverride: prometheus
     global:
       rbac:
         create: true
@@ -176,8 +176,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    nameOverride: alertmanager
-    fullnameOverride: monitoring
+    nameOverride: kube-prometheus-stack
+    fullnameOverride: alertmanager
     global:
       rbac:
         create: true

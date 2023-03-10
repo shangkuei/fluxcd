@@ -53,8 +53,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    nameOverride: grafana
-    fullnameOverride: monitoring
+    nameOverride: kube-prometheus-stack
+    fullnameOverride: grafana
     global:
       rbac:
         create: true
