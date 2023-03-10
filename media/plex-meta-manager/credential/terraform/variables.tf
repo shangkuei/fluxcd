@@ -6,7 +6,7 @@ variable "address" {
 
 variable "role" {
   type        = string
-  default     = "monitoring-tf-runner"
+  default     = "media-tf-runner"
   description = "vault role to authenticate"
 }
 
