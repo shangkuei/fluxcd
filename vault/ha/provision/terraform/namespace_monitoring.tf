@@ -63,7 +63,7 @@ path "${vault_mount.secret_monitoring.path}/destroy/*" {
 }
 
 path "${vault_mount.secret_monitoring.path}/metadata/*" {
-  capabilities = [ "list", "read", "delete" ]
+  capabilities = [ "create", "read", "update", "list", "delete" ]
 }
 EOT
 }
