@@ -93,7 +93,6 @@ spec:
     global:
       rbac:
         create: true
-        createAggregateClusterRoles: true
     alertmanager:
       enabled: false
     prometheusOperator:

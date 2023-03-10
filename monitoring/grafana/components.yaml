@@ -64,7 +64,7 @@ spec:
     prometheus:
       enabled: false
     prometheusOperator:
-      enabled: true
+      enabled: false
     kubeApiServer:
       enabled: false
     kubelet:
