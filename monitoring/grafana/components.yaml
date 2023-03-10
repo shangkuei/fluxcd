@@ -90,13 +90,16 @@ spec:
       defaultDashboardsTimezone: Asia/Taipei
       podDisruptionBudget:
         minAvailable: 1
-      persistence:
+      persistOence:
         enabled: true
         type: pvc
         storageClassName: synology-nfs
         accessModes:
           - ReadWriteOnce
         size: 10Gi
+      # nfs storage doesn't support chown
+      initChownData:
+        enabled: false
       adminPassword: null
       admin:
         existingSecret: grafana-admin
