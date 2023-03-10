@@ -28,7 +28,7 @@ spec:
     keepHistory: false
   values:
     nameOverride: vault-ha
-    fullnameOverride: vaule-ha
+    fullnameOverride: vault-ha
     global:
       enabled: false
       # tlsDisable: false
