@@ -2,7 +2,8 @@
 apiVersion: secrets-store.csi.x-k8s.io/v1alpha1
 kind: SecretProviderClass
 metadata:
-  name: monitoring-grafana-admin
+  name: grafana-admin
+  namespace: monitoring
 spec:
   provider: vault
   secretObjects:
@@ -106,5 +107,5 @@ spec:
             driver: secrets-store.csi.k8s.io
             readOnly: true
             volumeAttributes:
-              secretProviderClass: "monitoring-grafana-admin"
+              secretProviderClass: grafana-admin
     cleanPrometheusOperatorObjectNames: true
