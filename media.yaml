@@ -68,7 +68,7 @@ spec:
     # The plex meta manager  should wait until the media-base is ready.
     - name: media-base
     # The plex meta manager should wait until the credentials terraform stack is ready.
-    - name: media-terraform-credentials
+    - name: media-plex-meta-manager-terraform-credential
   sourceRef:
     kind: GitRepository
     name: flux-system
