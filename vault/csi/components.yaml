@@ -32,15 +32,8 @@ spec:
     global:
       enabled: false
       # tlsDisable: false
-      serverTelemetry:
-        prometheusOperator: true
     csi:
       enabled: true
       daemonSet:
         updateStrategy:
           minAvailable: "1"
-    serverTelemetry:
-      serviceMonitor:
-        enabled: true
-      prometheusRules:
-        enabled: true
