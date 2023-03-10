@@ -144,7 +144,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: vault/ha
+  path: vault/csi
   interval: 1h
   timeout: 10m
   force: true
