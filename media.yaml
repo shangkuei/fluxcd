@@ -45,3 +45,24 @@ spec:
   force: true
   prune: true
   wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: media-plex-meta-manager
+  namespace: flux-system
+spec:
+  dependsOn:
+    # The plex meta manager should wait until the nfs-provisioner is ready.
+    - name: nfs-provisioner
+    # The plex meta manager should wait until the credentials terraform stack is ready.
+    - name: media-terraform-credentials
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: media/plex-meta-manager
+  interval: 1h
+  timeout: 10m
+  force: true
+  prune: true
+  wait: true
