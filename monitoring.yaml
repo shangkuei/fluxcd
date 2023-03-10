@@ -44,7 +44,7 @@ spec:
       namespace: monitoring
     - apiVersion: apps/v1
       kind: StatefulSet
-      name: prometheus-prometheus
+      name: kube-prometheus-stack-prometheus
       namespace: monitoring
     - apiVersion: apps/v1
       kind: Deployment
@@ -52,11 +52,11 @@ spec:
       namespace: monitoring
     - apiVersion: apps/v1
       kind: DaemonSet
-      name: kube-prometheus-stack-node-exporter
+      name: kube-prometheus-stack-prometheus-node-exporter
       namespace: monitoring
     - apiVersion: apps/v1
       kind: StatefulSet
-      name: alertmanager-alertmanager
+      name: kube-prometheus-stack-alertmanager
       namespace: monitoring
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2

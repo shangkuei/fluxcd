@@ -95,7 +95,7 @@ spec:
       optional: true
   values:
     nameOverride: kube-prometheus-stack
-    fullnameOverride: prometheus
+    fullnameOverride: kube-prometheus-stack
     defaultRules:
       create: true
       rules:
@@ -212,7 +212,7 @@ spec:
     keepHistory: false
   values:
     nameOverride: kube-prometheus-stack
-    fullnameOverride: alertmanager
+    fullnameOverride: kube-prometheus-stack
     defaultRules:
       create: true
       rules:
