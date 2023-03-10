@@ -31,8 +31,8 @@ resource "vault_kv_secret_v2" "grafana_admin" {
   delete_all_versions = true
   data_json = jsonencode(
     {
-      user     = random_password.user,
-      password = random_password.password
+      user     = random_password.user.result,
+      password = random_password.password.result,
     }
   )
 }
