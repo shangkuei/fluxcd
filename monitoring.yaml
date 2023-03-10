@@ -44,7 +44,7 @@ spec:
       namespace: monitoring
     - apiVersion: apps/v1
       kind: StatefulSet
-      name: kube-prometheus-stack-prometheus
+      name: prometheus-prometheus
       namespace: monitoring
     - apiVersion: apps/v1
       kind: Deployment
