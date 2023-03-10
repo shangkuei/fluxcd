@@ -1,191 +1,303 @@
-# template:
-https://github.com/meisnate12/Plex-Meta-Manager/blob/master/config/config.yml.template
-# doc: https://metamanager.wiki/en/latest/config/configuration.html #
-https://metamanager.wiki/en/latest/config/libraries.html libraries: TOP:
-metadata_path: # https://metamanager.wiki/en/latest/metadata/metadata.html -
-folder: /nas-video/TOP/_metadata - file: /config/templates/actor.yaml
-template_variables: producer_summary: 由 <<key_name
-  >> 主演 minimum_items: 5 - file: /config/templates/studio.yaml
-  template_variables: studio_summary: 由 <<key_name
-    >> 出版 minimum_items: 5 - file: /config/templates/genre.yaml
-    template_variables: genre_summary: "類別合集: <<key_name
-      >>" minimum_items: 5 - file: /config/templates/resolution.yaml
-      template_variables: resolution_summary: "解析度: <<key_name
-        >>" - file: /config/templates/writer.yaml template_variables:
-        writer_summary: "系列: <<key_name
-          >>" overlay_path: #
-          https://metamanager.wiki/en/latest/metadata/overlay.html - pmm:
-          resolution template_variables: use_edition: false use_4k: false
-          use_576p: false use_480p: false use_dv: false use_hdr: false
-          #report_path: template_variables: use_separator: true #
-          https://metamanager.wiki/en/latest/config/operations.html operations:
-          # Deletes collections based on a set of given attributes. The
-          Collection must match all set attributes to be deleted.
-          delete_collections: configured: true less: 3 #
-          https://metamanager.wiki/en/latest/config/settings.html settings: #
-          Specify the directory where assets (posters, backgrounds, etc) are
-          located. asset_directory: /nas-video/TOP # Specify how many folder
-          levels to scan for an item within the asset directory. asset_depth: 1
-          # Whilst searching for assets, if an asset folder cannot be found
-          within the asset_directory, create one. create_asset_folders: false #
-          When determining which image to use on an item prioritize the
-          asset_directory over all other images types. prioritize_assets: true #
-          Notify the user of any items which does not have an asset image.
-          show_missing_assets: true # When a collection is run, delete the
-          collection if it is below the minimum number specified by
-          minimum_items. delete_below_minimum: true # List all collections not
-          managed by Plex Meta Manager at the end of each run. show_unmanaged:
-          true ## Set a list or comma-separated string of TMDb/TVDb IDs to
-          ignore in all collections. #ignore_ids: ##
-          https://metamanager.wiki/en/latest/config/plex.html #plex: ##
-          https://metamanager.wiki/en/latest/config/radarr.html #radarr: ##
-          https://metamanager.wiki/en/latest/config/sonarr.html #sonarr: ##
-          https://metamanager.wiki/en/latest/config/tautulli.html #tautulli:
-          #playlist_files: # #
-          https://metamanager.wiki/en/latest/metadata/playlist.html #
-          https://metamanager.wiki/en/latest/config/settings.html#image-asset-directory
-          settings: # Cache the Plex GUID and associated IDs for each library
-          item for faster subsequent processing. cache: true # Set the number of
-          days before each cache mapping expires and has to be re-cached.
-          cache_expiration: 7 # Specify the directory where assets (posters,
-          backgrounds, etc) are located. asset_directory: /config/assets #
-          Search the asset_directory for a dedicated folder. asset_folders: true
-          # Specify how many folder levels to scan for an item within the asset
-          directory. asset_depth: 0 # Whilst searching for assets, if an asset
-          folder cannot be found within the asset_directory, create one.
-          create_asset_folders: true # When determining which image to use on an
-          item prioritize the asset_directory over all other images types.
-          prioritize_assets: false # Rename the first image found to poster.ext
-          or background.ext basedon its height and weight.
-          dimensional_asset_rename: true # Whilst searching for assets, download
-          images set within metadata into the asset folder if none are already
-          present. download_url_assets: true # Notify the user of any items
-          which does not have an asset image. show_missing_assets: false #
-          Notify the user of any seasons which does not have an asset image.
-          show_missing_season_assets: false # Notify the user of any episodes
-          which does not have an asset image. show_missing_episode_assets: false
-          # When searching for assets, show or hide the update not needed
-          messages. show_asset_not_needed: false # Set the default sync_mode for
-          collections. sync_mode: sync # Set the default collection_order for
-          every collection run by PMM. default_collection_order: release # Set
-          the minimum number of items that must be found in order to build or
-          update a collection/playlist. minimum_items: 5 # When a collection is
-          run, delete the collection if it is below the minimum number specified
-          by minimum_items. delete_below_minimum: false # If a collection is
-          skipped due to it not being scheduled, delete the collection.
-          delete_not_scheduled: false # Set the number of minutes to delay
-          running run_again collections after daily run is finished.
-          run_again_delay: 30 # When running a collection, all unreleased
-          missing items will be filtered out from the missing YAML file.
-          missing_only_released: true # List all collections not managed by Plex
-          Meta Manager at the end of each run. show_unmanaged: true # List all
-          collections not configured by Plex Meta Manager at the end of each
-          run. show_unconfigured: true # List all items which have been filtered
-          out of a collection (i.e. if it doesn't meet the filter criteria).
-          show_filtered: true # While show_options is true the available options
-          for an attribute when using plex_search, smart_filter or filters will
-          be shown. show_options: true # While show_missing is true items
-          missing from collections will be displayed. show_missing: true # Only
-          items missing from a collection will be filtered. only_filter_missing:
-          false # Save a report of the items added, removed, filtered, or
-          missing from collections to a YAML file in the same directory as your
-          Metadata file. save_report: true # Specify the language to query TVDb
-          in. tvdb_language: en # Set a list or comma-separated string of
-          TMDb/TVDb IDs to ignore in all collections. ignore_ids: [] # Set a
-          list or comma-separated string of IMDb IDs to ignore in all
-          collections. ignore_imdb_ids: [] # Specify the amount of time to wait
-          between each item_refresh of every movie/show in a
-          collection/playlist. item_refresh_delay: 0 # Set the default playlist
-          sync_to_users. playlist_sync_to_user: all # Set the default playlist
-          exclude_users. playlist_exclude_users: [] # Set playlist_report to
-          true to print out a playlist report at the end of the log.
-          playlist_report: false # Specify where the repo attribute's base is
-          when defining metadata_paths and playlist_files. custom_repo: # Turn
-          SSL Verification on or off. verify_ssl: false # Will check nightly for
-          updates instead of develop. check_nightly: false #
-          https://metamanager.wiki/en/latest/config/plex.html plex:
-          {{- with secret "kv/media/data/plex/config" }}
-            # Plex Server URL or ENV url: "{{ .Data.data.url }}" # Plex Server
-            Authentication Token or ENV token: "{{ .Data.data.token }}"
-          {{- end }}
-          # Plex Server Timeout. timeout: 60 # Runs Clean Bundles on the Server
-          after all Metadata Files are run. clean_bundles: true # Runs Empty
-          Trash on the Server after all Metadata Files are run. empty_trash:
-          true # Runs Optimize on the Server after all Metadata Files are run
-          optimize: false # https://metamanager.wiki/en/latest/config/tmdb.html
-          tmdb:
-          {{- with secret "kv/media/data/tmdb/config" }}
-            # User TMDb V3 API Key apikey: "{{ .Data.data.api_v3 }}"
-          {{- end }}
-          # ISO 639-1 Code of the User Language language: en # ISO 3166-1 Code
-          of the User Region region: tw # Number of days before each cache
-          mapping expires and has to be re-cached. cache_expiration: 7 #
-          https://metamanager.wiki/en/latest/config/webhooks.html webhooks:
-          error: notifiarr version: notifiarr run_start: notifiarr run_end:
-          notifiarr changes: notifiarr ##
-          https://metamanager.wiki/en/latest/config/tautulli.html #tautulli: # #
-          Tautulli URL # url: # # Tautulli API Key # apikey: ##
-          https://metamanager.wiki/en/latest/config/omdb.html #omdb: # # OMDb
-          API Key # apikey: # # Number of days before each cache mapping expires
-          and has to be re-cached. # cache_expiration: #
-          https://metamanager.wiki/en/latest/config/notifiarr.html notifiarr:
-          {{- with secret "kv/media/data/notifiarr/config" }}
-            # Notifiarr API Key apikey: "{{ .Data.data.api }}"
-          {{- end }}
-          # https://metamanager.wiki/en/latest/config/mdblist.html #mdblist: # #
-          MdbList API Key # apikey: # # Number of days before each cache mapping
-          expires and has to be re-cached. # cache_expiration: 60 ##
-          https://metamanager.wiki/en/latest/config/anidb.html #anidb: # # AniDB
-          Client Name # client: # # AniDB Client Version # version: # # ISO
-          639-1 Code of the User Language. # language: # # Number of days before
-          each cache mapping expires and has to be re-cached. #
-          cache_expiration: # # AniDB Username # username: # # AniDB Password #
-          password: ## https://metamanager.wiki/en/latest/config/radarr.html
-          #radarr: # # Radarr URL # url: # # Radarr API Token. # token: # # Adds
-          all missing movies found from all collections to Radarr. #
-          add_missing: false # # Adds all existing movies in collections to
-          Radarr. # add_existing: false # # Upgrades all existing movies in
-          collections to match the Quality Profile of the collection. #
-          upgrade_existing: false # # Default Root Folder Path to use when
-          adding new movies. # root_folder_path: /volume1/radarr # # Monitor the
-          movie when adding new movies. # monitor: false # # Default Minimum
-          Availability to use when adding new movies. # availability: released #
-          # Default Quality Profile to use when adding new movies. #
-          quality_profile: HD-1080p # # Default list or comma-separated string
-          of tags to use when adding new movies. # tag: # - plex # - pmm # #
-          Start search for missing movie when adding new movies. # search: false
-          # # When using add_existing or radarr_add_all Convert this part of the
-          path to radarr_path. # radarr_path: # # When using add_existing or
-          radarr_add_all Convert the radarr_path part of the path to this. #
-          plex_path: ## https://metamanager.wiki/en/latest/config/sonarr.html
-          #sonarr: # # Sonarr URL # url: # # Sonarr API Token. # token: # # Adds
-          all missing shows found from all collections to Sonarr. # add_missing:
-          false # # Adds all existing shows in collections to Sonarr. #
-          add_existing: false # # Upgrades all existing shows in collections to
-          match the Quality Profile of the collection. # upgrade_existing: false
-          # # Default Root Folder Path to use when adding new shows. #
-          root_folder_path: /volume1/sonarr # # Default Monitor to use when
-          adding new shows. # monitor: none # # Default Quality Profile to use
-          when adding new shows. # quality_profile: HD-1080p # # Default
-          Language Profile to use when adding new shows. # language_profile:
-          English # # Default Series Type to use when adding new shows. #
-          series_type: standard # # Use the Season Folder Option when adding new
-          shows. # season_folder: true # # Default list or comma-separated
-          string of tags to use when adding new shows. # tag: # - plex # - pmm #
-          # Start search for missing episodes when adding new shows. # search:
-          false # # Start search for cutoff unmet episodes when adding new
-          shows. # cutoff_search: false # # When using add_existing or
-          sonarr_add_all Convert this part of the path to sonarr_path. #
-          sonarr_path: # # When using add_existing or sonarr_add_all Convert the
-          sonarr_path part of the path to this. # plex_path: ##
-          https://metamanager.wiki/en/latest/config/trakt.html #trakt: # # Trakt
-          Application Client ID # client_id: # # Trakt Application Client Secret
-          # client_secret: # # Trakt Pin # pin: ##
-          https://metamanager.wiki/en/latest/config/myanimelist.html #mal: # #
-          MyAnimeList Application Client ID # client_id: # # MyAnimeList
-          Application Client Secret # client_secret:</key_name
-        ></key_name
-      ></key_name
-    ></key_name
-  ></key_name
->
+# template: https://github.com/meisnate12/Plex-Meta-Manager/blob/master/config/config.yml.template
+# doc: https://metamanager.wiki/en/latest/config/configuration.html
+
+# https://metamanager.wiki/en/latest/config/libraries.html
+libraries:
+  TOP:
+    metadata_path:
+      # https://metamanager.wiki/en/latest/metadata/metadata.html
+      - folder: /nas-video/TOP/_metadata
+      - file: /config/templates/actor.yaml
+        template_variables:
+          producer_summary: 由 <<key_name>> 主演
+          minimum_items: 5
+      - file: /config/templates/studio.yaml
+        template_variables:
+          studio_summary: 由 <<key_name>> 出版
+          minimum_items: 5
+      - file: /config/templates/genre.yaml
+        template_variables:
+          genre_summary: "類別合集: <<key_name>>"
+          minimum_items: 5
+      - file: /config/templates/resolution.yaml
+        template_variables:
+          resolution_summary: "解析度: <<key_name>>"
+      - file: /config/templates/writer.yaml
+        template_variables:
+          writer_summary: "系列: <<key_name>>"
+    overlay_path:
+      # https://metamanager.wiki/en/latest/metadata/overlay.html
+      - pmm: resolution
+        template_variables:
+          use_edition: false
+          use_4k: false
+          use_576p: false
+          use_480p: false
+          use_dv: false
+          use_hdr: false
+    #report_path:
+    template_variables:
+      use_separator: true
+    # https://metamanager.wiki/en/latest/config/operations.html
+    operations:
+      # Deletes collections based on a set of given attributes. The Collection must match all set attributes to be deleted.
+      delete_collections:
+        configured: true
+        less: 3
+    # https://metamanager.wiki/en/latest/config/settings.html
+    settings:
+      # Specify the directory where assets (posters, backgrounds, etc) are located.
+      asset_directory: /nas-video/TOP
+      # Specify how many folder levels to scan for an item within the asset directory.
+      asset_depth: 1
+      # Whilst searching for assets, if an asset folder cannot be found within the asset_directory, create one.
+      create_asset_folders: false
+      # When determining which image to use on an item prioritize the asset_directory over all other images types.
+      prioritize_assets: true
+      # Notify the user of any items which does not have an asset image.
+      show_missing_assets: true
+      # When a collection is run, delete the collection if it is below the minimum number specified by minimum_items.
+      delete_below_minimum: true
+      # List all collections not managed by Plex Meta Manager at the end of each run.
+      show_unmanaged: true
+      ## Set a list or comma-separated string of TMDb/TVDb IDs to ignore in all collections.
+      #ignore_ids:
+    ## https://metamanager.wiki/en/latest/config/plex.html
+    #plex:
+    ## https://metamanager.wiki/en/latest/config/radarr.html
+    #radarr:
+    ## https://metamanager.wiki/en/latest/config/sonarr.html
+    #sonarr:
+    ## https://metamanager.wiki/en/latest/config/tautulli.html
+    #tautulli:
+#playlist_files:
+#  # https://metamanager.wiki/en/latest/metadata/playlist.html
+# https://metamanager.wiki/en/latest/config/settings.html#image-asset-directory
+settings:
+  # Cache the Plex GUID and associated IDs for each library item for faster subsequent processing.
+  cache: true
+  # Set the number of days before each cache mapping expires and has to be re-cached.
+  cache_expiration: 7
+  # Specify the directory where assets (posters, backgrounds, etc) are located.
+  asset_directory: /config/assets
+  # Search the asset_directory for a dedicated folder.
+  asset_folders: true
+  # Specify how many folder levels to scan for an item within the asset directory.
+  asset_depth: 0
+  # Whilst searching for assets, if an asset folder cannot be found within the asset_directory, create one.
+  create_asset_folders: true
+  # When determining which image to use on an item prioritize the asset_directory over all other images types.
+  prioritize_assets: false
+  # Rename the first image found to poster.ext or background.ext basedon its height and weight.
+  dimensional_asset_rename: true
+  # Whilst searching for assets, download images set within metadata into the asset folder if none are already present.
+  download_url_assets: true
+  # Notify the user of any items which does not have an asset image.
+  show_missing_assets: false
+  # Notify the user of any seasons which does not have an asset image.
+  show_missing_season_assets: false
+  # Notify the user of any episodes which does not have an asset image.
+  show_missing_episode_assets: false
+  # When searching for assets, show or hide the update not needed messages.
+  show_asset_not_needed: false
+  # Set the default sync_mode for collections.
+  sync_mode: sync
+  # Set the default collection_order for every collection run by PMM.
+  default_collection_order: release
+  # Set the minimum number of items that must be found in order to build or update a collection/playlist.
+  minimum_items: 5
+  # When a collection is run, delete the collection if it is below the minimum number specified by minimum_items.
+  delete_below_minimum: false
+  # If a collection is skipped due to it not being scheduled, delete the collection.
+  delete_not_scheduled: false
+  # Set the number of minutes to delay running run_again collections after daily run is finished.
+  run_again_delay: 30
+  # When running a collection, all unreleased missing items will be filtered out from the missing YAML file.
+  missing_only_released: true
+  # List all collections not managed by Plex Meta Manager at the end of each run.
+  show_unmanaged: true
+  # List all collections not configured by Plex Meta Manager at the end of each run.
+  show_unconfigured: true
+  # List all items which have been filtered out of a collection (i.e. if it doesn't meet the filter criteria).
+  show_filtered: true
+  # While show_options is true the available options for an attribute when using plex_search, smart_filter or filters will be shown.
+  show_options: true
+  # While show_missing is true items missing from collections will be displayed.
+  show_missing: true
+  # Only items missing from a collection will be filtered.
+  only_filter_missing: false
+  # Save a report of the items added, removed, filtered, or missing from collections to a YAML file in the same directory as your Metadata file.
+  save_report: true
+  # Specify the language to query TVDb in.
+  tvdb_language: en
+  # Set a list or comma-separated string of TMDb/TVDb IDs to ignore in all collections.
+  ignore_ids: []
+  # Set a list or comma-separated string of IMDb IDs to ignore in all collections.
+  ignore_imdb_ids: []
+  # Specify the amount of time to wait between each item_refresh of every movie/show in a collection/playlist.
+  item_refresh_delay: 0
+  # Set the default playlist sync_to_users.
+  playlist_sync_to_user: all
+  # Set the default playlist exclude_users.
+  playlist_exclude_users: []
+  # Set playlist_report to true to print out a playlist report at the end of the log.
+  playlist_report: false
+  # Specify where the repo attribute's base is when defining metadata_paths and playlist_files.
+  custom_repo:
+  # Turn SSL Verification on or off.
+  verify_ssl: false
+  # Will check nightly for updates instead of develop.
+  check_nightly: false
+# https://metamanager.wiki/en/latest/config/plex.html
+plex:
+  {{- with secret "kv/media/data/plex/config" }}
+  # Plex Server URL or ENV
+  url: "{{ .Data.data.url }}"
+  # Plex Server Authentication Token or ENV
+  token: "{{ .Data.data.token }}"
+  {{- end }}
+  # Plex Server Timeout.
+  timeout: 60
+  # Runs Clean Bundles on the Server after all Metadata Files are run.
+  clean_bundles: true
+  # Runs Empty Trash on the Server after all Metadata Files are run.
+  empty_trash: true
+  # Runs Optimize on the Server after all Metadata Files are run
+  optimize: false
+# https://metamanager.wiki/en/latest/config/tmdb.html
+tmdb:
+  {{- with secret "kv/media/data/tmdb/config" }}
+  # User TMDb V3 API Key
+  apikey: "{{ .Data.data.api_v3 }}"
+  {{- end }}
+  # ISO 639-1 Code of the User Language
+  language: en
+  # ISO 3166-1 Code of the User Region
+  region: tw
+  # Number of days before each cache mapping expires and has to be re-cached.
+  cache_expiration: 7
+# https://metamanager.wiki/en/latest/config/webhooks.html
+webhooks:
+  error: notifiarr
+  version: notifiarr
+  run_start: notifiarr
+  run_end: notifiarr
+  changes: notifiarr
+## https://metamanager.wiki/en/latest/config/tautulli.html
+#tautulli:
+#  # Tautulli URL
+#  url:
+#  # Tautulli API Key
+#  apikey:
+## https://metamanager.wiki/en/latest/config/omdb.html
+#omdb:
+#  # OMDb API Key
+#  apikey:
+#  # Number of days before each cache mapping expires and has to be re-cached.
+#  cache_expiration:
+# https://metamanager.wiki/en/latest/config/notifiarr.html
+notifiarr:
+  {{- with secret "kv/media/data/notifiarr/config" }}
+  # Notifiarr API Key
+  apikey: "{{ .Data.data.api }}"
+  {{- end }}
+# https://metamanager.wiki/en/latest/config/mdblist.html
+#mdblist:
+#  # MdbList API Key
+#  apikey:
+#  # Number of days before each cache mapping expires and has to be re-cached.
+#  cache_expiration: 60
+## https://metamanager.wiki/en/latest/config/anidb.html
+#anidb:
+#  # AniDB Client Name
+#  client:
+#  # AniDB Client Version
+#  version:
+#  # ISO 639-1 Code of the User Language.
+#  language:
+#  # Number of days before each cache mapping expires and has to be re-cached.
+#  cache_expiration:
+#  # AniDB Username
+#  username:
+#  # AniDB Password
+#  password:
+## https://metamanager.wiki/en/latest/config/radarr.html
+#radarr:
+#  # Radarr URL
+#  url:
+#  # Radarr API Token.
+#  token:
+#  # Adds all missing movies found from all collections to Radarr.
+#  add_missing: false
+#  # Adds all existing movies in collections to Radarr.
+#  add_existing: false
+#  # Upgrades all existing movies in collections to match the Quality Profile of the collection.
+#  upgrade_existing: false
+#  # Default Root Folder Path to use when adding new movies.
+#  root_folder_path: /volume1/radarr
+#  # Monitor the movie when adding new movies.
+#  monitor: false
+#  # Default Minimum Availability to use when adding new movies.
+#  availability: released
+#  # Default Quality Profile to use when adding new movies.
+#  quality_profile: HD-1080p
+#  # Default list or comma-separated string of tags to use when adding new movies.
+#  tag:
+#    - plex
+#    - pmm
+#  # Start search for missing movie when adding new movies.
+#  search: false
+#  # When using add_existing or radarr_add_all Convert this part of the path to radarr_path.
+#  radarr_path:
+#  # When using add_existing or radarr_add_all Convert the radarr_path part of the path to this.
+#  plex_path:
+## https://metamanager.wiki/en/latest/config/sonarr.html
+#sonarr:
+#  # Sonarr URL
+#  url:
+#  # Sonarr API Token.
+#  token:
+#  # Adds all missing shows found from all collections to Sonarr.
+#  add_missing: false
+#  # Adds all existing shows in collections to Sonarr.
+#  add_existing: false
+#  # Upgrades all existing shows in collections to match the Quality Profile of the collection.
+#  upgrade_existing: false
+#  # Default Root Folder Path to use when adding new shows.
+#  root_folder_path: /volume1/sonarr
+#  # Default Monitor to use when adding new shows.
+#  monitor: none
+#  # Default Quality Profile to use when adding new shows.
+#  quality_profile: HD-1080p
+#  # Default Language Profile to use when adding new shows.
+#  language_profile: English
+#  # Default Series Type to use when adding new shows.
+#  series_type: standard
+#  # Use the Season Folder Option when adding new shows.
+#  season_folder: true
+#  # Default list or comma-separated string of tags to use when adding new shows.
+#  tag:
+#    - plex
+#    - pmm
+#  # Start search for missing episodes when adding new shows.
+#  search: false
+#  # Start search for cutoff unmet episodes when adding new shows.
+#  cutoff_search: false
+#  # When using add_existing or sonarr_add_all Convert this part of the path to sonarr_path.
+#  sonarr_path:
+#  # When using add_existing or sonarr_add_all Convert the sonarr_path part of the path to this.
+#  plex_path:
+## https://metamanager.wiki/en/latest/config/trakt.html
+#trakt:
+#  # Trakt Application Client ID
+#  client_id:
+#  # Trakt Application Client Secret
+#  client_secret:
+#  # Trakt Pin
+#  pin:
+## https://metamanager.wiki/en/latest/config/myanimelist.html
+#mal:
+#  # MyAnimeList Application Client ID
+#  client_id:
+#  # MyAnimeList Application Client Secret
+#  client_secret:

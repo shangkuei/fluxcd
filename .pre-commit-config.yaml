@@ -5,11 +5,6 @@ repos:
     rev: v3.0.0-alpha.4
     hooks:
       - id: prettier
-        additional_dependencies:
-          - prettier
-          - "@prettier/plugin-xml"
-          - prettier-plugin-go-template
-          - prettier-plugin-toml
   - repo: https://github.com/Lucas-C/pre-commit-hooks
     rev: v1.4.2
     hooks:
