@@ -129,3 +129,28 @@ spec:
       kind: Terraform
       name: vault-ha
       namespace: vault
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: vault-csi-helm-release
+  namespace: flux-system
+spec:
+  dependsOn:
+    # The vault-csi should wait until the vault-base is ready for the helm repo.
+    - name: vault-base
+    # The vaule-csi should wait until the vault-ha is ready.
+    - name: vault-ha-helm-release
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: vault/ha
+  interval: 1h
+  timeout: 10m
+  force: true
+  prune: true
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: DaemonSet
+      name: vault-ha-csi-provider
+      namespace: vault
