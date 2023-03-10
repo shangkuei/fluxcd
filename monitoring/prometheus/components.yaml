@@ -24,7 +24,7 @@ spec:
     keepHistory: false
   values:
     nameOverride: prometheus-operator
-    fullnameOverride: ""
+    fullnameOverride: monitoring
     global:
       rbac:
         create: true
@@ -89,7 +89,7 @@ spec:
       optional: true
   values:
     nameOverride: prometheus
-    fullnameOverride: ""
+    fullnameOverride: monitoring
     global:
       rbac:
         create: true
@@ -177,7 +177,7 @@ spec:
     keepHistory: false
   values:
     nameOverride: alertmanager
-    fullnameOverride: ""
+    fullnameOverride: monitoring
     global:
       rbac:
         create: true

@@ -53,7 +53,7 @@ spec:
     keepHistory: false
   values:
     nameOverride: grafana
-    fullnameOverride: grafana
+    fullnameOverride: monitoring
     global:
       rbac:
         create: true

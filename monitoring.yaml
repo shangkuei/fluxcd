@@ -40,23 +40,23 @@ spec:
   healthChecks:
     - apiVersion: apps/v1
       kind: Deployment
-      name: prometheus-operator
+      name: monitoring-prometheus-operator
       namespace: monitoring
     - apiVersion: apps/v1
       kind: StatefulSet
-      name: prometheus
+      name: monitoring-prometheus
       namespace: monitoring
     - apiVersion: apps/v1
       kind: Deployment
-      name: kube-state-metrics
+      name: monitoring-kube-state-metrics
       namespace: monitoring
     - apiVersion: apps/v1
       kind: DaemonSet
-      name: node-exporter
+      name: monitoring-node-exporter
       namespace: monitoring
     - apiVersion: apps/v1
       kind: Deployment
-      name: alertmanager
+      name: monitoring-alertmanager
       namespace: monitoring
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -112,5 +112,5 @@ spec:
   healthChecks:
     - apiVersion: apps/v1
       kind: Deployment
-      name: grafana
+      name: monitoring-grafana
       namespace: monitoring
