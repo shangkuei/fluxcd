@@ -103,6 +103,7 @@ spec:
       extraVolumeMounts:
         - name: grafana-admin
           csi: true
+          mountPath: /vault/csi/admin
           data:
             driver: secrets-store.csi.k8s.io
             readOnly: true
