@@ -16,7 +16,7 @@ spec:
       type: Opaque
   parameters:
     roleName: monitoring-grafana
-    vaultAddress: "https://vault-ha.vault:8200"
+    vaultAddress: "http://vault-ha.vault:8200"
     # vaultTLSServerName: "vault.shangkuei.xyz"
     # vaultCACertPath: '/vault/tls/ca.crt'
     audience: secrets-store-csi
