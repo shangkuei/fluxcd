@@ -3,3 +3,6 @@ kind: Kustomization
 resources:
   - vault-dev-token.sops.yaml
   - components.yaml
+configMapGenerator:
+  - name: vault-dev-git-repository-reconciler
+    namespace: vault

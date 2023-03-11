@@ -10,6 +10,33 @@ spec:
     branch: main
   url: https://github.com/shangkuei/fluxcd.git
 ---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: vault-ha-git-repository-reconciler
+  namespace: vault
+spec:
+  ttlSecondsAfterFinished: 10
+  template:
+    spec:
+      serviceAccountName: tf-runner
+      containers:
+        - name: flux-cli
+          image: fluxcd/flux-cli:v0.41.1
+          imagePullPolicy: IfNotPresent
+          args:
+            - reconcile
+            - source
+            - git
+            - -n
+            - vault
+            - vault-ha
+      volumes:
+        - name: dummy
+          configMap:
+            name: vault-ha-git-repository-reconciler
+      restartPolicy: OnFailure
+---
 apiVersion: infra.contrib.fluxcd.io/v1alpha1
 kind: Terraform
 metadata:

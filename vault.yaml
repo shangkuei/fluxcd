@@ -67,6 +67,10 @@ spec:
   force: true
   prune: true
   healthChecks:
+    - apiVersion: batch/v1
+      kind: Job
+      name: vault-dev-git-repository-reconciler
+      namespace: vault
     - apiVersion: source.toolkit.fluxcd.io/v1beta2
       kind: GitRepository
       name: vault-dev
@@ -129,6 +133,10 @@ spec:
   force: true
   prune: true
   healthChecks:
+    - apiVersion: batch/v1
+      kind: Job
+      name: vault-ha-git-repository-reconciler
+      namespace: vault
     - apiVersion: source.toolkit.fluxcd.io/v1beta2
       kind: GitRepository
       name: vault-ha

@@ -45,6 +45,10 @@ spec:
   force: true
   prune: true
   healthChecks:
+    - apiVersion: batch/v1
+      kind: Job
+      name: plex-meta-manager-credential-git-repository-reconciler
+      namespace: media
     - apiVersion: source.toolkit.fluxcd.io/v1beta2
       kind: GitRepository
       name: plex-meta-manager-credential

@@ -81,6 +81,10 @@ spec:
   force: true
   prune: true
   healthChecks:
+    - apiVersion: batch/v1
+      kind: Job
+      name: grafana-git-repository-reconciler
+      namespace: monitoring
     - apiVersion: source.toolkit.fluxcd.io/v1beta2
       kind: GitRepository
       name: grafana
