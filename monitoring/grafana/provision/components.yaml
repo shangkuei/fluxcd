@@ -16,7 +16,8 @@ metadata:
   name: grafana-git-repository-reconciler
   namespace: monitoring
 spec:
-  ttlSecondsAfterFinished: 10
+  # clean up the job after the kustomization reconcile timeout
+  ttlSecondsAfterFinished: 600
   template:
     spec:
       serviceAccountName: tf-runner
