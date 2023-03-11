@@ -56,7 +56,7 @@ resource "vault_kv_secret_v2" "tmdb" {
     api_v3 = var.tmdb_api_v3
     api_v4 = var.tmdb_api_v4
   })
-  custom_metadata = {
+  custom_metadata {
     max_versions = 1
   }
 }
