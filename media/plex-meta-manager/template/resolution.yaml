@@ -60,7 +60,6 @@ dynamic_collections:
         480: "4_"
     exclude:
       - 480
-      - 4k
     addons:
       4k:
         - 8k
