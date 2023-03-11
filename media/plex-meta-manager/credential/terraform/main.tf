@@ -21,7 +21,7 @@ resource "vault_kv_secret_v2" "notifiarr" {
   data_json = jsonencode({
     api = var.notifiarr_api
   })
-  custom_metadata = {
+  custom_metadata {
     max_versions = 1
   }
 }
@@ -32,7 +32,7 @@ resource "vault_kv_secret_v2" "mdb" {
   data_json = jsonencode({
     api = var.mdb_api
   })
-  custom_metadata = {
+  custom_metadata {
     max_versions = 1
   }
 }
@@ -43,7 +43,7 @@ resource "vault_kv_secret_v2" "omdb" {
   data_json = jsonencode({
     api = var.omdb_api
   })
-  custom_metadata = {
+  custom_metadata {
     max_versions = 1
   }
 
@@ -68,7 +68,7 @@ resource "vault_kv_secret_v2" "plex" {
     url   = var.plex_url
     token = var.plex_token
   })
-  custom_metadata = {
+  custom_metadata {
     max_versions = 1
   }
 }
@@ -80,7 +80,7 @@ resource "vault_kv_secret_v2" "radarr" {
     url   = var.radarr_url
     token = var.radarr_token
   })
-  custom_metadata = {
+  custom_metadata {
     max_versions = 1
   }
 }
@@ -92,7 +92,7 @@ resource "vault_kv_secret_v2" "sonarr" {
     url   = var.sonarr_url
     token = var.sonarr_token
   })
-  custom_metadata = {
+  custom_metadata {
     max_versions = 1
   }
 }
