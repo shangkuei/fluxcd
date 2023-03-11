@@ -34,4 +34,7 @@ resource "vault_kv_secret_v2" "grafana_admin" {
       password = random_password.password.result,
     }
   )
+  custom_metadata = {
+    max_versions = 1
+  }
 }
