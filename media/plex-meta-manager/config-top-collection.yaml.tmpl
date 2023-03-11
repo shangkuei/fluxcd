@@ -150,7 +150,7 @@ settings:
   check_nightly: false
 # https://metamanager.wiki/en/latest/config/plex.html
 plex:
-  {{- with secret "kv/media/data/plex/config" }}
+  {{- with secret "secret/media/data/plex" }}
   # Plex Server URL or ENV
   url: "{{ .Data.data.url }}"
   # Plex Server Authentication Token or ENV
@@ -166,7 +166,7 @@ plex:
   optimize: false
 # https://metamanager.wiki/en/latest/config/tmdb.html
 tmdb:
-  {{- with secret "kv/media/data/tmdb/config" }}
+  {{- with secret "secret/media/data/tmdb" }}
   # User TMDb V3 API Key
   apikey: "{{ .Data.data.api_v3 }}"
   {{- end }}
@@ -197,7 +197,7 @@ webhooks:
 #  cache_expiration:
 # https://metamanager.wiki/en/latest/config/notifiarr.html
 notifiarr:
-  {{- with secret "kv/media/data/notifiarr/config" }}
+  {{- with secret "secret/media/data/notifiarr" }}
   # Notifiarr API Key
   apikey: "{{ .Data.data.api }}"
   {{- end }}

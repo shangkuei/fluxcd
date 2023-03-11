@@ -204,7 +204,7 @@ settings:
   check_nightly: false
 # https://metamanager.wiki/en/latest/config/plex.html
 plex:
-  {{- with secret "kv/media/data/plex/config" }}
+  {{- with secret "secret/media/data/plex" }}
   # Plex Server URL or ENV
   url: "{{ .Data.data.url }}"
   # Plex Server Authentication Token or ENV
@@ -220,7 +220,7 @@ plex:
   optimize: false
 # https://metamanager.wiki/en/latest/config/tmdb.html
 tmdb:
-  {{- with secret "kv/media/data/tmdb/config" }}
+  {{- with secret "secret/media/data/tmdb" }}
   # User TMDb V3 API Key
   apikey: "{{ .Data.data.api_v3 }}"
   {{- end }}
@@ -245,20 +245,20 @@ webhooks:
 #  apikey:
 # https://metamanager.wiki/en/latest/config/omdb.html
 omdb:
-  {{- with secret "kv/media/data/omdb/config" }}
+  {{- with secret "secret/media/data/omdb" }}
   # OMDb API Key
   apikey: "{{ .Data.data.api }}"
   {{- end }}
   # Number of days before each cache mapping expires and has to be re-cached.
   cache_expiration: 60
 notifiarr:
-  {{- with secret "kv/media/data/notifiarr/config" }}
+  {{- with secret "secret/media/data/notifiarr" }}
   # Notifiarr API Key
   apikey: "{{ .Data.data.api }}"
   {{- end }}
 # https://metamanager.wiki/en/latest/config/mdblist.html
 mdblist:
-  {{- with secret "kv/media/data/mdb/config" }}
+  {{- with secret "secret/media/data/mdb" }}
   # MdbList API Key
   apikey: "{{ .Data.data.api }}"
   {{- end }}
@@ -310,7 +310,7 @@ mdblist:
 #  plex_path:
 # https://metamanager.wiki/en/latest/config/sonarr.html
 sonarr:
-  {{- with secret "kv/media/data/sonarr/config" }}
+  {{- with secret "secret/media/data/sonarr" }}
   # Sonarr URL
   url: "{{ .Data.data.url }}"
   # Sonarr API Token.
