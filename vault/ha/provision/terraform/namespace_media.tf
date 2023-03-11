@@ -15,9 +15,8 @@ resource "vault_mount" "secret_media" {
 }
 
 resource "vault_kv_secret_backend_v2" "secret_media" {
-  mount                = vault_mount.secret_media.path
-  max_versions         = 5
-  delete_version_after = 12600
+  mount        = vault_mount.secret_media.path
+  max_versions = 5
 }
 
 resource "vault_kubernetes_auth_backend_role" "media_tf_runner" {

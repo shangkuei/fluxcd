@@ -15,9 +15,8 @@ resource "vault_mount" "secret_monitoring" {
 }
 
 resource "vault_kv_secret_backend_v2" "secret_monitoring" {
-  mount                = vault_mount.secret_monitoring.path
-  max_versions         = 5
-  delete_version_after = 12600
+  mount        = vault_mount.secret_monitoring.path
+  max_versions = 5
 }
 
 resource "vault_kubernetes_auth_backend_role" "monitoring_tf_runner" {
