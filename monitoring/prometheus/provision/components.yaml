@@ -57,5 +57,3 @@ spec:
   refreshBeforeApply: true
   storeReadablePlan: human
   approvePlan: auto
-  writeOutputsToSecret:
-    name: prometheus-vault-token

@@ -83,8 +83,8 @@ resource "vault_policy" "monitoring_prometheus" {
   name = "${local.namespace_monitoring.name}-${local.namespace_monitoring.prometheus}"
 
   policy = <<EOT
-path "/sys/metrics" {
-  capabilities = ["read"]
+path "sys/metrics" {
+  capabilities = ["read" ]
 }
 EOT
 }
@@ -94,7 +94,7 @@ resource "vault_policy" "monitoring_prometheus_token" {
 
   policy = <<EOT
 path "auth/token/renew" {
-  capabilities = ["update"]
+  capabilities = [ "update"]
 }
 
 path "auth/token/monitoring-prometheus-token" {
@@ -108,14 +108,11 @@ resource "vault_token" "prometheus" {
     vault_policy.monitoring_prometheus.name,
     vault_policy.monitoring_prometheus_token.name,
   ]
-  no_parent = true
-  renewable = true
-  # ttl             = "24h"
-  # renew_min_lease = 43200
-  # renew_increment = 86400
-  ttl             = "10m"
-  renew_min_lease = 300
-  renew_increment = 600
+  no_parent       = true
+  renewable       = true
+  ttl             = "24h"
+  renew_min_lease = 43200
+  renew_increment = 86400
 }
 
 resource "vault_kubernetes_auth_backend_role" "monitoring_grafana" {

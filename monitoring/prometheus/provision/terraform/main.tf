@@ -14,12 +14,3 @@ provider "vault" {
     }
   }
 }
-
-resource "vault_token" "prometheus" {
-  policies        = [var.prometheus_policy]
-  no_parent       = true
-  renewable       = true
-  ttl             = "10m"
-  renew_min_lease = 300
-  renew_increment = 600
-}
