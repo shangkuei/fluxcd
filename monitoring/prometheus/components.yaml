@@ -66,127 +66,6 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: prometheus
-  namespace: monitoring
-spec:
-  dependsOn:
-    - name: prometheus-operator
-  chart:
-    spec:
-      version: "43.x"
-      chart: kube-prometheus-stack
-      reconcileStrategy: ChartVersion
-      sourceRef:
-        kind: HelmRepository
-        name: prometheus-community
-  interval: 1h
-  timeout: 10m
-  maxHistory: 5
-  install:
-    crds: Skip
-  upgrade:
-    cleanupOnFail: true
-    crds: Skip
-  uninstall:
-    keepHistory: false
-  valuesFrom:
-    - kind: ConfigMap
-      name: vaules-node
-      optional: true
-  values:
-    nameOverride: kube-prometheus-stack
-    fullnameOverride: kube-prometheus-stack
-    defaultRules:
-      create: true
-      rules:
-        alertmanager: false
-        etcd: false
-        configReloaders: false
-        k8s: false
-        kubeApiserverAvailability: false
-        kubeApiserverBurnrate: false
-        kubeApiserverHistogram: false
-        kubeApiserverSlos: false
-        kubeControllerManager: false
-        kubelet: false
-        kubeProxy: false
-        kubePrometheusGeneral: false
-        kubePrometheusNodeRecording: false
-        kubernetesApps: false
-        kubernetesResources: false
-        kubernetesStorage: false
-        kubernetesSystem: false
-        kubeSchedulerAlerting: false
-        kubeSchedulerRecording: false
-        kubeStateMetrics: false
-        network: false
-        node: false
-        nodeExporterAlerting: false
-        nodeExporterRecording: false
-        prometheus: false
-        general: true
-        prometheusOperator: true
-    global:
-      rbac:
-        create: true
-    alertmanager:
-      enabled: false
-    prometheusOperator:
-      enabled: false
-    grafana:
-      enabled: false
-    prometheus:
-      enabled: true
-      serviceAccount:
-        name: prometheus
-      podDisruptionBudget:
-        enabled: true
-        minAvailable: 1
-      prometheusSpec:
-        logfmt: json
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              storageClassName: synology-nfs
-              accessModes:
-                - ReadWriteOnce
-              resources:
-                requests:
-                  storage: 100Gi
-            selector: {}
-    kubeApiServer:
-      enabled: true
-    kubelet:
-      enabled: true
-    kubeControllerManager:
-      enabled: true
-    coreDns:
-      enabled: true
-    kubeEtcd:
-      enabled: true
-    kubeScheduler:
-      enabled: true
-    kubeProxy:
-      enabled: true
-    kubeStateMetrics:
-      enabled: true
-      nameverride: kube-state-metrics
-      fullnameOverride: kube-state-metrics
-      serviceAccount:
-        name: kube-state-metrics
-      selfMonitor:
-        enabled: true
-    nodeExporter:
-      enabled: true
-      nameverride: node-exporter
-      fullnameOverride: node-exporter
-      serviceAccount:
-        name: node-exporter
-    cleanPrometheusOperatorObjectNames: true
----
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
   name: alertmanager
   namespace: monitoring
 spec:
@@ -275,4 +154,147 @@ spec:
       enabled: true
       serviceAccount:
         name: alertmanager
+    cleanPrometheusOperatorObjectNames: true
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  dependsOn:
+    - name: prometheus-operator
+    - name: alertmanager
+  chart:
+    spec:
+      version: "43.x"
+      chart: kube-prometheus-stack
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+  interval: 1h
+  timeout: 10m
+  maxHistory: 5
+  install:
+    crds: Skip
+  upgrade:
+    cleanupOnFail: true
+    crds: Skip
+  uninstall:
+    keepHistory: false
+  valuesFrom:
+    - kind: ConfigMap
+      name: vaules-node
+      optional: true
+  values:
+    nameOverride: kube-prometheus-stack
+    fullnameOverride: kube-prometheus-stack
+    defaultRules:
+      create: true
+      rules:
+        alertmanager: false
+        etcd: false
+        configReloaders: false
+        k8s: false
+        kubeApiserverAvailability: false
+        kubeApiserverBurnrate: false
+        kubeApiserverHistogram: false
+        kubeApiserverSlos: false
+        kubeControllerManager: false
+        kubelet: false
+        kubeProxy: false
+        kubePrometheusGeneral: false
+        kubePrometheusNodeRecording: false
+        kubernetesApps: false
+        kubernetesResources: false
+        kubernetesStorage: false
+        kubernetesSystem: false
+        kubeSchedulerAlerting: false
+        kubeSchedulerRecording: false
+        kubeStateMetrics: false
+        network: false
+        node: false
+        nodeExporterAlerting: false
+        nodeExporterRecording: false
+        prometheus: false
+        general: true
+        prometheusOperator: true
+    global:
+      rbac:
+        create: true
+    alertmanager:
+      enabled: false
+    prometheusOperator:
+      enabled: false
+    grafana:
+      enabled: false
+    prometheus:
+      enabled: true
+      serviceAccount:
+        name: prometheus
+      podDisruptionBudget:
+        enabled: true
+        minAvailable: 1
+      prometheusSpec:
+        logfmt: json
+        alertingEndpoints:
+          - name: alertmanager-operated
+            namespace: monitoring
+            port: http-web
+            scheme: http
+            apiVersion: v2
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: synology-nfs
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 100Gi
+            selector: {}
+      # {{- if or .Values.prometheus.prometheusSpec.alertingEndpoints .Values.alertmanager.enabled }}
+      #   alerting:
+      #     alertmanagers:
+      # {{- if .Values.prometheus.prometheusSpec.alertingEndpoints }}
+      # {{ toYaml .Values.prometheus.prometheusSpec.alertingEndpoints | indent 6 }}
+      # {{- else if .Values.alertmanager.enabled }}
+      #       - namespace: {{ template "kube-prometheus-stack.namespace" . }}
+      #         name: {{ template "kube-prometheus-stack.fullname" . }}-alertmanager
+      #         port: {{ .Values.alertmanager.alertmanagerSpec.portName }}
+      #         {{- if .Values.alertmanager.alertmanagerSpec.routePrefix }}
+      #         pathPrefix: "{{ .Values.alertmanager.alertmanagerSpec.routePrefix }}"
+      #         {{- end }}
+      #         apiVersion: {{ .Values.alertmanager.apiVersion }}
+      # {{- end }}
+      # {{- end }}
+    kubeApiServer:
+      enabled: true
+    kubelet:
+      enabled: true
+    kubeControllerManager:
+      enabled: true
+    coreDns:
+      enabled: true
+    kubeEtcd:
+      enabled: true
+    kubeScheduler:
+      enabled: true
+    kubeProxy:
+      enabled: true
+    kubeStateMetrics:
+      enabled: true
+      nameverride: kube-state-metrics
+      fullnameOverride: kube-state-metrics
+      serviceAccount:
+        name: kube-state-metrics
+      selfMonitor:
+        enabled: true
+    nodeExporter:
+      enabled: true
+      nameverride: node-exporter
+      fullnameOverride: node-exporter
+      serviceAccount:
+        name: node-exporter
     cleanPrometheusOperatorObjectNames: true
