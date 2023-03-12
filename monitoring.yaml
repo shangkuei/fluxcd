@@ -25,11 +25,11 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    # The grafana provision stack should wait until the tf-controller is ready.
+    # The prometheus provision stack should wait until the tf-controller is ready.
     - name: flux-system
-    # The grafana provision stack should wait until the vault-ha provision stack is ready.
+    # The prometheus provision stack should wait until the vault-ha provision stack is ready.
     - name: vault-ha-terraform-provision
-    # The grafana provision stack should wait until the monitoring-base is ready.
+    # The prometheus provision stack should wait until the monitoring-base is ready.
     - name: monitoring-base
   sourceRef:
     kind: GitRepository
@@ -64,6 +64,8 @@ spec:
     - name: nfs-provisioner
     # The prometheus stack should wait until the monitoring-base is ready.
     - name: monitoring-base
+    # The prometheus stack should wait until the prometheus provision stack is ready.
+    - name: monitoring-prometheus-terraform-provision
   sourceRef:
     kind: GitRepository
     name: flux-system
