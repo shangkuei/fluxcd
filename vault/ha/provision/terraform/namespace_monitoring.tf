@@ -23,6 +23,7 @@ resource "vault_kubernetes_auth_backend_role" "monitoring_tf_runner" {
   depends_on = [
     vault_policy.token,
     vault_policy.monitoring_tf_runner,
+    vault_policy.monitoring_prometheus,
     vault_policy.monitoring_prometheus_token,
   ]
   backend                          = vault_auth_backend.kubernetes.path
@@ -32,6 +33,7 @@ resource "vault_kubernetes_auth_backend_role" "monitoring_tf_runner" {
   token_policies = [
     vault_policy.token.name,
     vault_policy.monitoring_tf_runner.name,
+    vault_policy.monitoring_prometheus.name,
     vault_policy.monitoring_prometheus_token.name,
   ]
   token_bound_cidrs = [var.kubernetes_cluster_cidrs]
