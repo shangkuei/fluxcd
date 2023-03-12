@@ -23,6 +23,7 @@ resource "vault_kubernetes_auth_backend_role" "monitoring_tf_runner" {
   depends_on = [
     vault_policy.token,
     vault_policy.monitoring_tf_runner,
+    vault_policy.monitoring_prometheus_token,
   ]
   backend                          = vault_auth_backend.kubernetes.path
   role_name                        = "${local.namespace_monitoring.name}-${local.namespace_monitoring.runner}"
@@ -31,6 +32,7 @@ resource "vault_kubernetes_auth_backend_role" "monitoring_tf_runner" {
   token_policies = [
     vault_policy.token.name,
     vault_policy.monitoring_tf_runner.name,
+    vault_policy.monitoring_prometheus_token.name,
   ]
   token_bound_cidrs = [var.kubernetes_cluster_cidrs]
 }
@@ -85,6 +87,24 @@ resource "vault_policy" "monitoring_prometheus" {
   policy = <<EOT
 path "/sys/metrics" {
   capabilities = ["read"]
+}
+EOT
+}
+
+resource "vault_policy" "monitoring_prometheus_token" {
+  name = "${local.namespace_monitoring.name}-${local.namespace_monitoring.prometheus}-token"
+
+  policy = <<EOT
+path "auth/token/lookup-accessor" {
+  capabilities = ["update"]
+}
+
+path "auth/token/revoke-accessor" {
+  capabilities = ["update"]
+}
+
+path "auth/token/monitoring-prometheus-token" {
+  capabilities = [ "update" ]
 }
 EOT
 }

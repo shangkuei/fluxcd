@@ -37,10 +37,6 @@ resource "vault_policy" "vault_ha_token" {
 path "auth/token/vault-ha" {
   capabilities = [ "update" ]
 }
-
-path "auth/token/vault-ha" {
-  capabilities = [ "update" ]
-}
 EOT
 }
 
