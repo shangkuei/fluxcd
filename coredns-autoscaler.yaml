@@ -21,6 +21,10 @@ spec:
       linear_autocaler_fullname_override: coredns-scaler
       linear_autocaler_target: deployment/coredns
   healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v1beta2
+      kind: HelmRelease
+      name: coredns-scaler
+      namespace: kube-system
     - apiVersion: apps/v1
       kind: Deployment
       name: coredns-scaler

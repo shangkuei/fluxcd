@@ -36,6 +36,10 @@ spec:
   force: true
   prune: true
   healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v1beta2
+      kind: HelmRelease
+      name: vault-dev
+      namespace: vault
     - apiVersion: apps/v1
       kind: StatefulSet
       name: vault-dev
@@ -102,6 +106,10 @@ spec:
   force: true
   prune: true
   healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v1beta2
+      kind: HelmRelease
+      name: vault-ha
+      namespace: vault
     - apiVersion: apps/v1
       kind: StatefulSet
       name: vault-ha
@@ -166,6 +174,10 @@ spec:
   force: true
   prune: true
   healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v1beta2
+      kind: HelmRelease
+      name: vault-csi
+      namespace: vault
     - apiVersion: apps/v1
       kind: DaemonSet
       name: vault-ha-csi-provider

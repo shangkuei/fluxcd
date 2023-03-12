@@ -38,6 +38,18 @@ spec:
   force: true
   prune: true
   healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v1beta2
+      kind: HelmRelease
+      name: prometheus-operator
+      namespace: monitoring
+    - apiVersion: helm.toolkit.fluxcd.io/v1beta2
+      kind: HelmRelease
+      name: prometheus
+      namespace: monitoring
+    - apiVersion: helm.toolkit.fluxcd.io/v1beta2
+      kind: HelmRelease
+      name: alertmanager
+      namespace: monitoring
     - apiVersion: apps/v1
       kind: Deployment
       name: prometheus-operator
@@ -118,6 +130,10 @@ spec:
   force: true
   prune: true
   healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v1beta2
+      kind: HelmRelease
+      name: grafana
+      namespace: monitoring
     - apiVersion: apps/v1
       kind: Deployment
       name: grafana
