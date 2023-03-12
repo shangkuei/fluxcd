@@ -22,7 +22,9 @@ spec:
       params:
         format:
           - prometheus
-      bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+      bearerTokenSecret:
+        key: prometheus-token
+        name: prometheus-vault-token
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease

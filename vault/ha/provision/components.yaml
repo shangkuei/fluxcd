@@ -57,3 +57,5 @@ spec:
   varsFrom:
     - kind: Secret
       name: vault-ha-token
+  writeOutputsToSecret:
+    name: prometheus-vault-token

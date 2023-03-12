@@ -48,7 +48,7 @@ resource "vault_token" "vault_ha" {
   policies        = ["vault-ha", "vault-ha-token"]
   no_parent       = true
   renewable       = true
-  ttl             = "24h"
+  period          = "24h"
   renew_min_lease = 43200
   renew_increment = 86400
 }

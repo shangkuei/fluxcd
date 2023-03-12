@@ -254,21 +254,6 @@ spec:
                 requests:
                   storage: 100Gi
             selector: {}
-      # {{- if or .Values.prometheus.prometheusSpec.alertingEndpoints .Values.alertmanager.enabled }}
-      #   alerting:
-      #     alertmanagers:
-      # {{- if .Values.prometheus.prometheusSpec.alertingEndpoints }}
-      # {{ toYaml .Values.prometheus.prometheusSpec.alertingEndpoints | indent 6 }}
-      # {{- else if .Values.alertmanager.enabled }}
-      #       - namespace: {{ template "kube-prometheus-stack.namespace" . }}
-      #         name: {{ template "kube-prometheus-stack.fullname" . }}-alertmanager
-      #         port: {{ .Values.alertmanager.alertmanagerSpec.portName }}
-      #         {{- if .Values.alertmanager.alertmanagerSpec.routePrefix }}
-      #         pathPrefix: "{{ .Values.alertmanager.alertmanagerSpec.routePrefix }}"
-      #         {{- end }}
-      #         apiVersion: {{ .Values.alertmanager.apiVersion }}
-      # {{- end }}
-      # {{- end }}
     kubeApiServer:
       enabled: true
     kubelet:

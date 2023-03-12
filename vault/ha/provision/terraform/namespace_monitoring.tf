@@ -23,8 +23,6 @@ resource "vault_kubernetes_auth_backend_role" "monitoring_tf_runner" {
   depends_on = [
     vault_policy.token,
     vault_policy.monitoring_tf_runner,
-    vault_policy.monitoring_prometheus,
-    vault_policy.monitoring_prometheus_token,
   ]
   backend                          = vault_auth_backend.kubernetes.path
   role_name                        = "${local.namespace_monitoring.name}-${local.namespace_monitoring.runner}"
@@ -33,8 +31,6 @@ resource "vault_kubernetes_auth_backend_role" "monitoring_tf_runner" {
   token_policies = [
     vault_policy.token.name,
     vault_policy.monitoring_tf_runner.name,
-    vault_policy.monitoring_prometheus.name,
-    vault_policy.monitoring_prometheus_token.name,
   ]
   token_bound_cidrs = [var.kubernetes_cluster_cidrs]
 }
@@ -97,11 +93,7 @@ resource "vault_policy" "monitoring_prometheus_token" {
   name = "${local.namespace_monitoring.name}-${local.namespace_monitoring.prometheus}-token"
 
   policy = <<EOT
-path "auth/token/lookup-accessor" {
-  capabilities = ["update"]
-}
-
-path "auth/token/revoke-accessor" {
+path "auth/token/renew" {
   capabilities = ["update"]
 }
 
@@ -109,6 +101,21 @@ path "auth/token/monitoring-prometheus-token" {
   capabilities = [ "update" ]
 }
 EOT
+}
+
+resource "vault_token" "prometheus" {
+  policies = [
+    vault_policy.monitoring_prometheus.name,
+    vault_policy.monitoring_prometheus_token.name,
+  ]
+  no_parent = true
+  renewable = true
+  # ttl             = "24h"
+  # renew_min_lease = 43200
+  # renew_increment = 86400
+  ttl             = "10m"
+  renew_min_lease = 300
+  renew_increment = 600
 }
 
 resource "vault_kubernetes_auth_backend_role" "monitoring_grafana" {
