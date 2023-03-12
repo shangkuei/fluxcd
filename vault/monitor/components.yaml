@@ -10,8 +10,8 @@ spec:
       - vault
   selector:
     matchLabels:
-      app.kubernetes.io/name: vault-ha
-      app.kubernetes.io/instance: vault
+      app.kubernetes.io/name: vault
+      app.kubernetes.io/instance: vault-ha
       vault-active: "true"
   endpoints:
     - port: http
