@@ -21,41 +21,6 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: monitoring-prometheus-terraform-provision
-  namespace: flux-system
-spec:
-  dependsOn:
-    # The grafana provision stack should wait until the tf-controller is ready.
-    - name: flux-system
-    # The grafana provision stack should wait until the vault-ha provision stack is ready.
-    - name: vault-ha-terraform-provision
-    # The grafana provision stack should wait until the monitoring-base is ready.
-    - name: monitoring-base
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: monitoring/prometheus/provision
-  interval: 1h
-  timeout: 10m
-  force: true
-  prune: true
-  healthChecks:
-    - apiVersion: batch/v1
-      kind: Job
-      name: prometheus-git-repository-reconciler
-      namespace: monitoring
-    - apiVersion: source.toolkit.fluxcd.io/v1beta2
-      kind: GitRepository
-      name: prometheus
-      namespace: monitoring
-    - apiVersion: infra.contrib.fluxcd.io/v1alpha1
-      kind: Terraform
-      name: prometheus
-      namespace: monitoring
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
   name: monitoring-prometheus-stack
   namespace: flux-system
 spec:
