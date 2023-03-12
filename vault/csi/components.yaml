@@ -20,10 +20,10 @@ spec:
   timeout: 10m
   maxHistory: 5
   install:
-    crds: Create
+    crds: Skip
   upgrade:
     cleanupOnFail: true
-    crds: CreateReplace
+    crds: Skip
   uninstall:
     keepHistory: false
   values:

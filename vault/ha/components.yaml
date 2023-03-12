@@ -29,10 +29,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    global:
-      # tlsDisable: false
-      serverTelemetry:
-        prometheusOperator: true
+    # global:
+    #   tlsDisable: false
     injector:
       logLevel: info
       logFormat: json
@@ -129,8 +127,3 @@ spec:
       activeVaultPodOnly: true
     csi:
       enabled: false
-    serverTelemetry:
-      serviceMonitor:
-        enabled: true
-      prometheusRules:
-        enabled: true

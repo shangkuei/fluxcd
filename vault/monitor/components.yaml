@@ -1,0 +1,81 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: vault-ha
+  namespace: vault
+spec:
+  namespaceSelector:
+    matchNames:
+      - vault
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vault-ha
+      app.kubernetes.io/instance: vault
+      vault-active: "true"
+  endpoints:
+    - port: http
+      interval: 30s
+      scrapeTimeout: 10s
+      scheme: http
+      path: /v1/sys/metrics
+      params:
+        format:
+          - prometheus
+      bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vault-monitor
+  namespace: vault
+spec:
+  dependsOn:
+    - name: vault-ha
+      namespace: vault
+  chart:
+    spec:
+      chart: vault
+      version: v0
+      sourceRef:
+        kind: HelmRepository
+        name: hashicorp
+      interval: 12h
+      reconcileStrategy: ChartVersion
+  interval: 1h
+  timeout: 10m
+  maxHistory: 5
+  install:
+    crds: Skip
+  upgrade:
+    cleanupOnFail: true
+    crds: Skip
+  uninstall:
+    keepHistory: false
+  values:
+    nameOverride: vault-ha
+    fullnameOverride: vault-ha
+    global:
+      enabled: false
+      serverTelemetry:
+        prometheusOperator: true
+    serverTelemetry:
+      serviceMonitor:
+        enabled: false
+      prometheusRules:
+        enabled: true
+        rules:
+          - alert: vault-HighResponseTime
+            annotations:
+              message: The response time of Vault is over 500ms on average over the last 5 minutes.
+            expr: vault_core_handle_request{quantile="0.5", namespace="mynamespace"} > 500
+            for: 5m
+            labels:
+              severity: warning
+          - alert: vault-HighResponseTime
+            annotations:
+              message: The response time of Vault is over 1s on average over the last 5 minutes.
+            expr: vault_core_handle_request{quantile="0.5", namespace="mynamespace"} > 1000
+            for: 5m
+            labels:
+              severity: critical

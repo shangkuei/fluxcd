@@ -1,11 +1,11 @@
 locals {
   namespace_monitoring = {
-    name    = "monitoring"
-    runner  = "tf-runner"
-    grafana = "grafana"
+    name       = "monitoring"
+    runner     = "tf-runner"
+    grafana    = "grafana"
+    prometheus = "prometheus"
   }
 }
-
 
 resource "vault_mount" "secret_monitoring" {
   path        = "secret/${local.namespace_monitoring.name}"
@@ -63,6 +63,34 @@ path "${vault_mount.secret_monitoring.path}/destroy/*" {
 
 path "${vault_mount.secret_monitoring.path}/metadata/*" {
   capabilities = [ "create", "read", "update", "list", "delete" ]
+}
+EOT
+}
+
+resource "vault_kubernetes_auth_backend_role" "monitoring_prometheus" {
+  depends_on = [
+    vault_policy.monitoring_prometheus,
+  ]
+  backend                          = vault_auth_backend.kubernetes.path
+  role_name                        = "${local.namespace_monitoring.name}-${local.namespace_monitoring.prometheus}"
+  bound_service_account_names      = [local.namespace_monitoring.prometheus]
+  bound_service_account_namespaces = [local.namespace_monitoring.name]
+  token_policies                   = [vault_policy.monitoring_prometheus.name]
+  token_bound_cidrs                = [var.kubernetes_cluster_cidrs]
+}
+
+resource "vault_policy" "monitoring_prometheus" {
+  name = "${local.namespace_monitoring.name}-${local.namespace_monitoring.prometheus}"
+
+  policy = <<EOT
+# To retrieve the usage metrics
+path "sys/internal/counters/activity" {
+  capabilities = ["read"]
+}
+
+# To read and update the usage metrics configuration
+path "sys/internal/counters/config" {
+  capabilities = ["read", "update"]
 }
 EOT
 }
