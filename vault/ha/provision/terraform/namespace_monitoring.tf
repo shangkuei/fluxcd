@@ -83,14 +83,8 @@ resource "vault_policy" "monitoring_prometheus" {
   name = "${local.namespace_monitoring.name}-${local.namespace_monitoring.prometheus}"
 
   policy = <<EOT
-# To retrieve the usage metrics
-path "sys/internal/counters/activity" {
+path "/sys/metrics" {
   capabilities = ["read"]
-}
-
-# To read and update the usage metrics configuration
-path "sys/internal/counters/config" {
-  capabilities = ["read", "update"]
 }
 EOT
 }

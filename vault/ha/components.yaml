@@ -100,11 +100,6 @@ spec:
               tls_disable = 1
               address = "[::]:8200"
               cluster_address = "[::]:8201"
-
-              # Add authenicated metrics access
-              telemetry {
-                unauthenticated_metrics_access = "true"
-              }
             }
 
             storage "raft" {
@@ -118,6 +113,11 @@ spec:
               retry_join {
                 leader_api_addr = "http://vault-ha-2.vault-ha-internal:8200"
               }
+            }
+
+            telemetry {
+              prometheus_retention_time = "24h"
+              disable_hostname = true
             }
 
             service_registration "kubernetes" {}
