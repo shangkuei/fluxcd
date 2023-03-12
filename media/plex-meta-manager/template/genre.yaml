@@ -7,7 +7,7 @@ translations:
   pmm: translations
 
 collections:
-  Genre:
+  Genre Collections:
     template:
       - name: separator
         separator: genre
