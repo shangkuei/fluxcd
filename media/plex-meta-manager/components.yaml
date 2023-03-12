@@ -142,7 +142,7 @@ metadata:
   name: plex-meta-manager-top-collection
   namespace: media
 spec:
-  schedule: "0 3 * * *"
+  schedule: "0 5 * * *"
   jobTemplate:
     spec:
       ttlSecondsAfterFinished: 60
@@ -314,7 +314,7 @@ metadata:
   name: plex-meta-manager-show
   namespace: media
 spec:
-  schedule: "0 3 * * *"
+  schedule: "0 4 * * *"
   jobTemplate:
     spec:
       ttlSecondsAfterFinished: 60

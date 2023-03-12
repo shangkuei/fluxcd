@@ -2,27 +2,27 @@ external_templates:
   pmm: templates
   template_variables:
     collection_section: "15"
-    conditionals:
-      image:
-        default: resolution/<<key>>
-        conditions:
-          - style: standards
-            value: resolution/standards/<<key>>
-      resolution_name:
-        default: <<key_name>>
-        conditions:
-          - style: standards
-            key: 480
-            value: SD
-          - style: standards
-            key: 720
-            value: HD
-          - style: standards
-            key: 1080
-            value: Full HD
-          - style: standards
-            key: 4k
-            value: Ultra HD
+    # conditionals:
+    #   image:
+    #     default: resolution/<<key>>
+    #     conditions:
+    #       - style: standards
+    #         value: resolution/standards/<<key>>
+    #   resolution_name:
+    #     default: <<key_name>>
+    #     conditions:
+    #       - style: standards
+    #         key: 480
+    #         value: SD
+    #       - style: standards
+    #         key: 720
+    #         value: HD
+    #       - style: standards
+    #         key: 1080
+    #         value: Full HD
+    #       - style: standards
+    #         key: 4k
+    #         value: Ultra HD
 
 translations:
   pmm: translations
@@ -53,6 +53,10 @@ dynamic_collections:
         default: resolution
       style:
         default: standards
+      image:
+        default: resolution/<<key>>
+      resolution_name:
+        default: <<key_name>>
       order:
         4k: "1_"
         1080: "2_"
