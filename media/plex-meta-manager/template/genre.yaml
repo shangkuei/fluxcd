@@ -14,8 +14,8 @@ collections:
       - name: translation
         key_name: Genre
         translation_key: separator
-        separator_name: 分類
-        separator_summary: "章節分隔: 分類"
+        separator_name: 類別
+        separator_summary: "章節分隔: 類別"
 
 dynamic_collections:
   Dynamic Genre:

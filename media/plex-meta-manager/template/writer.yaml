@@ -14,7 +14,7 @@ collections:
       - name: translation
         key_name: Writer
         translation_key: separator
-        separator_name: 類別
+        separator_name: 系列
         separator_summary: "章節分隔: 系列"
 
 dynamic_collections:
