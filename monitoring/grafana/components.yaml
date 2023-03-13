@@ -88,6 +88,41 @@ spec:
     grafana:
       enabled: true
       defaultDashboardsTimezone: Asia/Taipei
+      sidecar:
+        # Log level default for all sidecars. Can be one of: DEBUG, INFO, WARN, ERROR, CRITICAL. Defaults to INFO
+        logLevel: INFO
+        alerts:
+          enabled: true
+          label: grafana_alert
+          labelValue: "true"
+        dashboards:
+          enabled: true
+          label: grafana_dashboard
+          labelValue: "true"
+          multicluster:
+            global:
+              enabled: false
+            etcd:
+              enabled: false
+          provider:
+            allowUiUpdates: false
+        datasources:
+          enabled: true
+          label: grafana_datasource
+          labelValue: "true"
+          uid: prometheus
+          url: http://prometheus-operated.monitoring:9090/
+          defaultDatasourceEnabled: true
+          isDefaultDatasource: true
+          createPrometheusReplicasDatasources: false
+        plugins:
+          enabled: false
+          label: grafana_plugin
+          labelValue: "true"
+        notifiers:
+          enabled: false
+          label: grafana_notifier
+          labelValue: "true"
       podDisruptionBudget:
         minAvailable: 1
       extraInitContainers:
